@@ -22,6 +22,16 @@ impl Point<f32, f32> {
     }
 }
 
+enum Option_i32{
+    Some(i32),
+    None,
+}
+
+enum Option_f64{
+    Some(f64),
+    None,
+}
+
 
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
@@ -37,5 +47,12 @@ fn main() {
     let p = Point { x: 5., y: 10. };
 
     println!("p.distance_from_origin = {}", p.distance_from_origin());
+
+    let both_integer = Point { x: 5, y: 10 };
+    let both_float = Point { x: 1.0, y: 4.0 };
+    let integer_and_float = Point { x: 5, y: 4.0 };
+
+    let integer = Option_i32::Some(5);
+    let float = Option_f64::Some(5.0);
 
 }
