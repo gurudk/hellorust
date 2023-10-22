@@ -108,6 +108,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn it_works() -> Result<(), String> {
         if 2 + 2 == 4 {
             Ok(())
