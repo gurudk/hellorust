@@ -8,17 +8,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a519fedc-a9b6-4144-843c-60c625b9928e" name="Changes" comment="ownership">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/algorithms/hashmap/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/algorithms/hashmap/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/algorithms/hashmap/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/algorithms/passgen/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/algorithms/passgen/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv/src/akv_btree.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv/src/akv_disk.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv/src/akv_mem.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv/src/lib.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv1/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv1/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv1/mist.datx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv1/src/akv_mem.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv1/src/lib.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv2/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv2/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv2/misci.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv2/src/akv_disk.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv2/src/akv_mem.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv2/src/lib.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-fview-str/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-fview-str/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-fview-str/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-pacific-basic/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-pacific-basic/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-pacific-json/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-pacific-json/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-pacific-json/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-partitybit/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-partitybit/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-partitybit/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-serde-eg/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-serde-eg/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-serde-eg/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-write123/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-write123/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch7/ch7-write123/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Rust File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -30,26 +67,36 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2X1zNWSayrrA3erQc4bJVAzWqqJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="2" id="Remove" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;org.rust.disableDetachedFileInspection/home/wolf/mygit/hellorust/rustlang/ownership-deref-drop/src/main.rs&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/wolf/RustroverProjects/hellorust/rustinaction/ch7/ch7-actionkv/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.disableDetachedFileInspection/home/wolf/mygit/hellorust/rustlang/ownership-deref-drop/src/main.rs": "true",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Confirmation",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv/src" />
+    </key>
+  </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
   </component>
@@ -84,6 +131,7 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="ownership" />
     <option name="LAST_COMMIT_MESSAGE" value="ownership" />
   </component>

@@ -1,0 +1,21 @@
+[package]
+name = "ch7-actionkv1"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+byteorder = "1.5.0"
+crc = "1.7"
+serde = "1.0.192"
+serde_derive = "1.0.192"
+
+
+[lib]
+name = "libactionkv"
+path = "src/lib.rs"
+
+[[bin]] # [[]] is needed because of TOML's array syntax. A crate may have multiple binaries, but only a single library.
+name = "akv_mem"
+path = "src/akv_mem.rs"
