@@ -8,9 +8,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a519fedc-a9b6-4144-843c-60c625b9928e" name="Changes" comment="ownership">
-      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-simple/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-simple/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-simple/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-mac/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-mac/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-mac/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-misc/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-misc/ioerror.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-misc/mac-addresses.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-misc/multierror.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-misc/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-misc/traiterror.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-misc/wraperror.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-misc/wraperror2.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-resolve/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-resolve/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-resolve/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-stdlib/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-stdlib/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustinaction/ch8/ch8-stdlib/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +97,8 @@
       <workItem from="1697815539193" duration="12343000" />
       <workItem from="1698424554195" duration="323000" />
       <workItem from="1698424887141" duration="11712000" />
-      <workItem from="1699842513413" duration="3911000" />
+      <workItem from="1699842513413" duration="3943000" />
+      <workItem from="1700011500887" duration="4468000" />
     </task>
     <task id="LOCAL-00001" summary="ownership">
       <option name="closed" value="true" />
