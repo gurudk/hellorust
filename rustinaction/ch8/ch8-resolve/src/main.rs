@@ -11,7 +11,7 @@ use trust_dns::serialize::binary::*;
 fn main() {
     let app = App::new("resolve")
         .about("A simple to use DNS resolver")
-        .arg(Arg::with_name("dns-server").short("s").default_value("1.1.1.1"))
+        .arg(Arg::with_name("dns-server").short("s").default_value("8.8.8.8"))
         .arg(Arg::with_name("domain-name").required(true))
         .get_matches();
 
