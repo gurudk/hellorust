@@ -8,15 +8,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a519fedc-a9b6-4144-843c-60c625b9928e" name="Changes" comment="ownership">
-      <change afterPath="$PROJECT_DIR$/rustlang/if-let/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/if-let/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/if-let/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/let-statements/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/let-statements/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/let-statements/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/pattern-identifier/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/pattern-identifier/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/pattern-identifier/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/closure-capture-modes/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/closure-capture-modes/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/closure-capture-modes/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/closure-types/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/closure-types/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/function-pointer/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/function-pointer/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/function-pointer/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-bind-modes/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-bind-modes/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-bind-modes/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-range/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-range/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-range/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-rest/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-rest/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-rest/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-struct/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-struct/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-struct/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-wildcard/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-wildcard/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/pattern-wildcard/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/slice-types/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/slice-types/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/slice-types/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/unique-immutable-borrows/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/unique-immutable-borrows/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/unique-immutable-borrows/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,6 +121,7 @@
       <workItem from="1700441928931" duration="5400000" />
       <workItem from="1700792554695" duration="5646000" />
       <workItem from="1700880964973" duration="3827000" />
+      <workItem from="1701056887873" duration="11902000" />
     </task>
     <task id="LOCAL-00001" summary="ownership">
       <option name="closed" value="true" />
