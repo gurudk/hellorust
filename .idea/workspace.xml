@@ -8,14 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a519fedc-a9b6-4144-843c-60c625b9928e" name="Changes" comment="ownership">
-      <change afterPath="$PROJECT_DIR$/rustlang/impl-trait-type/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/impl-trait-type/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/impl-trait-type/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/type-parameters/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/type-parameters/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/type-parameters/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/refcell/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/refcell/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/refcell/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rustlang/slice-types/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/rustlang/slice-types/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +96,7 @@
       <workItem from="1700792554695" duration="5646000" />
       <workItem from="1700880964973" duration="3827000" />
       <workItem from="1701056887873" duration="11902000" />
-      <workItem from="1701139472150" duration="2936000" />
+      <workItem from="1701139472150" duration="6128000" />
     </task>
     <task id="LOCAL-00001" summary="ownership">
       <option name="closed" value="true" />
