@@ -7,7 +7,24 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a519fedc-a9b6-4144-843c-60c625b9928e" name="Changes" comment="ownership" />
+    <list default="true" id="a519fedc-a9b6-4144-843c-60c625b9928e" name="Changes" comment="ownership">
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-as-param/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-as-param/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-as-param/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-as-return/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-as-return/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-as-return/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-diff-lifetimes/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-diff-lifetimes/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-diff-lifetimes/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-in-struct/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-in-struct/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-in-struct/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-share-mut/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-share-mut/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ref-share-mut/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,6 +111,7 @@
       <workItem from="1701139472150" duration="6128000" />
       <workItem from="1701220941718" duration="796000" />
       <workItem from="1701226423746" duration="4667000" />
+      <workItem from="1701313012704" duration="6169000" />
     </task>
     <task id="LOCAL-00001" summary="ownership">
       <option name="closed" value="true" />
