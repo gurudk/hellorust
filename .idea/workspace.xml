@@ -8,8 +8,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a519fedc-a9b6-4144-843c-60c625b9928e" name="Changes" comment="ownership">
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8-for-and-range/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8-for-and-range/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8-for-and-range/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-func-param/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-func-param/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-func-param/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-local-variables/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-local-variables/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-local-variables/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-temporaries/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-temporaries/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructor-temporaries/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructors/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructors/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/destructors/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ownership-func-ret/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ownership-func-ret/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustlang/ownership-func-ret/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rustlang/ref-share-mut/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/rustlang/ref-share-mut/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +115,7 @@
       <workItem from="1701220941718" duration="796000" />
       <workItem from="1701226423746" duration="4667000" />
       <workItem from="1701313012704" duration="8835000" />
+      <workItem from="1701398187931" duration="6274000" />
     </task>
     <task id="LOCAL-00001" summary="ownership">
       <option name="closed" value="true" />
