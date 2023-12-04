@@ -8,28 +8,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a519fedc-a9b6-4144-843c-60c625b9928e" name="Changes" comment="ownership">
-      <change afterPath="$PROJECT_DIR$/crates/rand/get-started/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crates/rand/get-started/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crates/rand/get-started/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter16-returning-traits-dyn/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter16-returning-traits-dyn/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter16-returning-traits-dyn/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/hashmap/entry-example/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/hashmap/entry-example/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/hashmap/entry-example/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/inline-asmebly/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/inline-asmebly/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/inline-asmebly/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/lifetimes-limits/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/lifetimes-limits/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/lifetimes-limits/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/ownership-alias/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/ownership-alias/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/ownership-alias/src/main.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/statics-generics/Cargo.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/statics-generics/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rustlang/statics-generics/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter5/types-casting/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter5/types-casting/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter5/types-casting/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter5/types-literals/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter5/types-literals/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter5/types-literals/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/from/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/from/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/from/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/into/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/into/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/into/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/tofromstring/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/tofromstring/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/tofromstring/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/tryfrominto/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/tryfrominto/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter6/tryfrominto/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/array-slices/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/array-slices/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/array-slices/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/enums/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/enums/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/enums/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/pointers-ref/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/pointers-ref/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/pointers-ref/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/structs/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/structs/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/structs/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/tuples/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/tuples/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/match/destructuring/tuples/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/returning-from-loops/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/returning-from-loops/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/returning-from-loops/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/while-example/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/while-example/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rustbyexample/chapter8/while-example/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rustbyexample/chapter16-returning-traits-dyn/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/rustbyexample/chapter16/returning-traits-dyn/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rustbyexample/chapter16-returning-traits-dyn/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/rustbyexample/chapter16/returning-traits-dyn/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rustbyexample/chapter16-returning-traits-dyn/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/rustbyexample/chapter16/returning-traits-dyn/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rustbyexample/chapter8-for-and-range/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/rustbyexample/chapter8/for-and-range/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rustbyexample/chapter8-for-and-range/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/rustbyexample/chapter8/for-and-range/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rustbyexample/chapter8-for-and-range/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/rustbyexample/chapter8/for-and-range/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +109,8 @@
       <recent name="$PROJECT_DIR$/rustinaction/ch7/ch7-actionkv/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/rustbyexample/chapter16" />
+      <recent name="$PROJECT_DIR$/rustbyexample/chapter8" />
       <recent name="$PROJECT_DIR$/rustlang/net-simple-webserver" />
     </key>
   </component>
@@ -120,6 +146,7 @@
       <workItem from="1701313012704" duration="8835000" />
       <workItem from="1701398187931" duration="6274000" />
       <workItem from="1701570666248" duration="10244000" />
+      <workItem from="1701653765080" duration="10859000" />
     </task>
     <task id="LOCAL-00001" summary="ownership">
       <option name="closed" value="true" />
