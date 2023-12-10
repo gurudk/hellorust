@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./rustbyexample/chapter17/hello-macro/Cargo.toml"
+    ]
+}
