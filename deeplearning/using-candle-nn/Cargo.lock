@@ -82,7 +82,8 @@ checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
 [[package]]
 name = "candle-core"
 version = "0.3.1"
-source = "git+https://github.com/huggingface/candle.git#4cb443d00a83d3de994b6c799d501f2ffc2b034b"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d60d9b91c73bc662dc45aff607f5ffe79724b7cf7d7c8dc12a72b25921683b67"
 dependencies = [
  "byteorder",
  "candle-kernels",
@@ -104,11 +105,27 @@ dependencies = [
 [[package]]
 name = "candle-kernels"
 version = "0.3.1"
-source = "git+https://github.com/huggingface/candle.git#4cb443d00a83d3de994b6c799d501f2ffc2b034b"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ce91f09bed7c5f106db9332ed667f6f3cae47ffea43d6d1201d51612e5ee6c9"
 dependencies = [
  "anyhow",
  "glob",
  "rayon",
+]
+
+[[package]]
+name = "candle-nn"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4eb6e13e7076439309786482d4d4c1b4e1f2b102ca93513372d5419ffcf5df25"
+dependencies = [
+ "candle-core",
+ "half",
+ "num-traits",
+ "rayon",
+ "safetensors",
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
@@ -351,13 +368,6 @@ dependencies = [
  "num-traits",
  "rand",
  "rand_distr",
-]
-
-[[package]]
-name = "hello-candle"
-version = "0.1.0"
-dependencies = [
- "candle-core",
 ]
 
 [[package]]
@@ -705,6 +715,14 @@ name = "unicode-xid"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f962df74c8c05a667b5ee8bcf162993134c104e96440b663c8daa176dc772d8c"
+
+[[package]]
+name = "using-candle-nn"
+version = "0.1.0"
+dependencies = [
+ "candle-core",
+ "candle-nn",
+]
 
 [[package]]
 name = "wasi"
