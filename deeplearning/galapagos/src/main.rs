@@ -97,7 +97,7 @@ fn main() {
 
     println!("exp derive:{:?}", numerical_difference(x.clone(),exp, EPS));
 
-    println!("{:?}", ee);
+    println!("{:?}, {:?}", ee, ee.input);
 }
 
 
