@@ -4,52 +4,77 @@ const EPS:f64 = 1e-4_f64;
 #[derive(Debug,Copy,Clone)]
 struct Variable{
     data:f64,
+    grad:Option<f64>,
 }
 
 impl Variable{
-    pub fn new(value:f64)->Self{
-        Variable{data:value}
+    pub fn new(value:f64, grad:Option<f64>)->Self{
+        Variable{data:value,grad:grad}
     }
 }
 
 
-struct Square();
-struct Exp();
+struct Square{
+    input:Variable,
+}
+
+#[derive(Debug)]
+struct Exp{
+    input:Variable,
+}
+
+
+impl Drop for Exp{
+    fn drop(&mut self){
+        println!("Dropping exp:{:?}", self);
+    }
+}
 
 
 trait Functionable{
-    fn get_function(&self)-> Box< dyn Fn(Variable)->Variable +'_>{
 
-        let func = move |v:Variable| {
-            let x = v.data;
-            let y = self.forward(x);
-            Variable{data:y}
+    fn get_function<'a>(&'a self)-> Box< dyn Fn(Variable)->Variable+'a>;
+    fn forward(& self, x:Variable)->f64;
+}
+
+impl Functionable for Square{
+
+    fn get_function<'a>(&'a self)-> Box< dyn Fn(Variable)->Variable+'a>{
+         let func = move |v:Variable| {
+
+            let y = self.forward(v);
+            Variable::new(y,None)
         };
 
         Box::new(func)
     }
 
-    fn forward(&self, x:f64)->f64;
-}
 
-impl Functionable for Square{
-
-    fn forward(&self, x:f64)->f64{
-        x*x
+    fn forward(& self, x:Variable)->f64{
+        x.data*x.data
     }
 }
 
 impl Functionable for Exp{
-    fn forward(&self, x:f64)->f64{
-        x.exp()
+
+    fn get_function<'a>(&'a self)-> Box< dyn Fn(Variable)->Variable + 'a>{
+
+        let func = move |v:Variable| {
+            let y = self.forward(v);
+            Variable::new(y,None)
+        };
+
+        Box::new(func)
+    }
+
+    fn forward(& self, x:Variable)->f64{
+        x.data.exp()
     }
 }
 
-type F1 = Box<dyn Fn(Variable)->Variable>;
-
-fn numerical_difference(f:F1, x:Variable, eps:f64)->f64{
-    let x0:&Variable = &Variable{data:(x.data-eps)};
-    let x1:&Variable = &Variable{data:(x.data+eps)};
+fn numerical_difference(x:Variable, f:Box<dyn Fn(Variable)->Variable + '_>, eps:f64)-> f64{
+    let x0:&Variable = &Variable::new(x.data-eps, None);
+    let x1:&Variable = &Variable::new(x.data+eps, None);
     let y0:&Variable = &f(*x0);
     let y1:&Variable = &f(*x1);
 
@@ -58,16 +83,21 @@ fn numerical_difference(f:F1, x:Variable, eps:f64)->f64{
 
 fn main() {
     println!("Hello, world!");
-    let x:Variable = Variable::new(3f64);
-    let s = Square();
+    let x:Variable = Variable::new(3f64, None);
+
+    let s = Square{input:x.clone()};
     let square = s.get_function();
-    let result = square(x);
-    let exp = (Exp()).get_function();
+    let result = square(x.clone());
 
-    println!("result:{:?}", exp(result));
-    println!("exp derive:{:?}", numerical_difference(exp, x, EPS));
+    let ee = Exp{input:x.clone()};
+    let exp = ee.get_function();
 
+    // println!("result:{:?}", exp(result));
+    // println!("exp derive:{:?},{:?}", ee, exp(x.clone()));
 
+    println!("exp derive:{:?}", numerical_difference(x.clone(),exp, EPS));
+
+    println!("{:?}", ee);
 }
 
 
