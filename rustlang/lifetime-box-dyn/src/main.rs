@@ -45,3 +45,21 @@ fn main() {
 
     render_scene(scene)
 }
+
+
+
+
+// The key problem here is that Box<dyn T> is equivalent to Box<dyn T + 'static>. But that's just the default lifetime - you can override it by writing Box<dyn T + 'a>.
+
+// The only thing you need to change is to give a lifetime to the Scene and pass that down to the contained Boxes.
+
+// struct Scene<'a> {
+//     entries: Vec<Box<dyn Drawable + 'a>>,
+// }
+
+// impl<'a> Scene<'a> {
+//     pub fn new() -> Scene<'a> {
+//         Scene { entries: vec![] }
+//     }
+// }
+// A full example is available on the playground
