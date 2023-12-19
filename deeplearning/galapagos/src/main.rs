@@ -35,6 +35,7 @@ trait Functionable{
 
     fn get_function<'a>(&'a self)-> Box< dyn Fn(Variable)->Variable+'a>;
     fn forward(& self, x:Variable)->f64;
+    fn backward(&self, gy:Variable)->f64;
 }
 
 impl Functionable for Square{
@@ -53,6 +54,12 @@ impl Functionable for Square{
     fn forward(& self, x:Variable)->f64{
         x.data*x.data
     }
+
+    fn backward(&self, gy:Variable)->f64{
+        let x = self.input.data;
+        let dy = gy.data; 
+        2_f64*x*dy 
+    }
 }
 
 impl Functionable for Exp{
@@ -69,6 +76,11 @@ impl Functionable for Exp{
 
     fn forward(& self, x:Variable)->f64{
         x.data.exp()
+    }
+
+    fn backward(&self, gy:Variable)->f64{
+        let x = self.input.data;
+        x.exp()*gy.data
     }
 }
 
@@ -98,6 +110,8 @@ fn main() {
     println!("exp derive:{:?}", numerical_difference(x.clone(),exp, EPS));
 
     println!("{:?}, {:?}", ee, ee.input);
+
+
 }
 
 
