@@ -35,7 +35,7 @@ impl Node{
                     data:data,
                     left:None,
                     right:None,
-                    parent:Some(atnode),
+                    parent:Some(Rc::downgrade(&atnode)),
                 }
             )
         )
