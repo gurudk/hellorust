@@ -48,8 +48,8 @@ impl Tree{
     /// happened, and `false` if the given data was already present in the
     /// tree.
     pub fn insert(&mut self, data: i32) -> bool {
-        if let Some(root) = self.root {
-            if !self.insert_at(root, data) {
+        if let Some(root) = &self.root {
+            if !self.insert_at(Rc::clone(&root), data) {
                 return false;
             }
         } else {
@@ -65,22 +65,22 @@ impl Tree{
         if data == node.data {
             false
         } else if data < node.data {
-            match node.left {
+            match &node.left {
                 None => {
-                    let new_node = Node::new_with_parent(data, atnode);
+                    let new_node = Node::new_with_parent(data, Rc::clone(&atnode));
                     node.left = Some(new_node);
                     true
                 }
-                Some(lnode) => self.insert_at(lnode, data),
+                Some(lnode) => self.insert_at(Rc::clone(lnode), data),
             }
         } else {
-            match node.right {
+            match &node.right {
                 None => {
-                    let new_node = Node::new_with_parent(data, atnode);
+                    let new_node = Node::new_with_parent(data, Rc::clone(&atnode));
                     node.right = Some(new_node);
                     true
                 }
-                Some(rnode) => self.insert_at(rnode, data),
+                Some(rnode) => self.insert_at(Rc::clone(rnode), data),
             }
         }
     }
