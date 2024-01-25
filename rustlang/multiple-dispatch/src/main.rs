@@ -51,8 +51,11 @@ fn main() {
     person.fly();
     Pilot::fly(&person);
     Wizard::fly(&person);
+    <Human>::fly(&person);
 
     println!("A baby dog is called a {}", Dog::baby_name());
     println!("A baby dog is called a {}", <Dog as Animal>::baby_name());
+    println!("A baby dog is called a {}", <Dog>::baby_name());
+
 
 }

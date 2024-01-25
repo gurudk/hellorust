@@ -1,9 +1,17 @@
-// Shorthand for initializing a `String`.
-macro_rules! S {
-    ($e:expr) => {String::from($e)};
+
+#![allow(unused)]
+fn main() {
+// compiles OK
+macro_rules! foo {
+    ($l:tt) => { bar!($l); println!("{}",$l)}
 }
 
-fn main() {
-    let world = S!("Worldddddd");
-    println!("Hello, {}!", world);
+macro_rules! bar {
+    (3.1) => {println!("it is ok 3, ")};
+    // (i32) => {println!("it is tt")}
+}
+
+foo!(3.1);
+// foo!(i32);
+
 }
