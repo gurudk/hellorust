@@ -1,67 +1,53 @@
-struct Variable<'a>{
-    data:Option<f64>,
-    grad:Option<f64>,
-    creator:Option<Box<&'a dyn for<'c> Function<'c>>>,
+struct Variable {
+    data: Option<f64>,
+    grad: Option<f64>,
+    creator: Option<*mut dyn Function>,
 }
 
-trait Function<'a>{
-
-    fn set_input<'b:'a>(&mut self, inp:Option<&'b Variable>);
-    fn get_input(&self)-> Box<Option<&Variable>>;
-
-    fn set_output(&mut self, oup:Box<Option<Variable<'a>>>);
-    fn get_output(&self)-> Box<Option<Variable>>;
-    fn forward(&mut self)->f64;
-    fn get_executor(&mut self)->Box<dyn FnMut(&Variable) -> Box<Variable<'a>> + '_>;
-
+trait Function {
+    fn set_input(&mut self, inp: *mut Variable);
+    fn get_input(&self) -> *mut Variable;
+    fn set_output(&mut self, oup: *mut Variable);
+    fn get_output(&self) -> *mut Variable;
+    fn forward(&mut self) -> *mut Variable;
+    fn execute(&mut self) -> *mut Variable;
 }
 
-struct Square<'a>{
-    input:Option<&'a Variable<'a>>,
-    output:Box<Option<Variable<'a>>>,
+struct Square {
+    input: *mut Variable,
+    output: *mut Variable,
 }
 
-impl<'a> Function<'a> for Square<'a>{
-    fn set_input<'b:'a>(&mut self, inp:Option<&'b Variable>){
+impl Function for Square {
+    fn set_input(&mut self, inp: *mut Variable) {
         self.input = inp;
     }
 
-    fn get_input(&self)->Box<Option<&Variable>>{
-        Box::new(self.input)
+    fn get_input(&self) -> *mut Variable {
+        self.input
     }
 
-    fn set_output(&mut self, oup:Box<Option<Variable<'a>>>){
+    fn set_output(&mut self, oup: *mut Variable) {
         self.output = oup;
     }
 
-    fn get_output(&self)->Box<Option<Variable>>{
+    fn get_output(&self) -> *mut Variable {
         self.output
     }
 
-    fn forward(&mut self)->f64{
-        let x = self.input.unwrap().data;
-        x.unwrap() * x.unwrap()
+    fn forward(&mut self) -> *mut Variable {
+        unsafe {
+            Box::into_raw(Box::new(Variable {
+                data: Some((*self.input).data.unwrap() * (*self.input).data.unwrap()),
+                grad: None,
+                creator: None,
+            }))
+        }
     }
 
-    fn get_executor(&mut self)->Box<dyn FnMut(&Variable) -> Box<Variable<'a>> +'_>{
-        let func = |v:&Variable|->Box<Variable>{
-            let x = self.forward();
-            Box::new(Variable{data:Some(x), creator:None, grad:None})
-        };
-
-        Box::new(func)
+    fn execute(&mut self) -> *mut Variable {
+        self.forward()
     }
 }
 
-
-fn main(){
-    let x = Variable{data:Some(3_f64),creator:None,grad:None};
-    let mut s = Square{input:Some(&x), output:Box::new(None)};
-    let mut square = s.get_executor();
-    let mut ret = square(&x);
-    // s.output = Some(&ret);
-    // ret.creator = Some(Box::new(&s));
-    println!("{}", ret.data.unwrap());
-
-}
-
+fn main() {}
