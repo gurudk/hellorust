@@ -1,3 +1,5 @@
+use std::iter::zip;
+
 #[derive(Debug)]
 struct Variable {
     data: Option<f64>,
@@ -14,9 +16,10 @@ impl Variable {
         unsafe {
             if let Some(func) = self.creator {
                 let xs = (*func).get_input();
-                for x in xs{
-                    (*x).grad = Some((*func).backward(self.grad.unwrap())[0]);
-                    (*x).backward();
+                let grads = (*func).backward(self.grad.unwrap());
+                for (x,grad) in zip(xs,grads) {
+                    (*(*x)).grad = Some(grad);
+                    (*(*x)).backward();
                 }
             }
         }
@@ -25,7 +28,7 @@ impl Variable {
 
 trait Function {
     fn set_input(&mut self, inputs: Vec<*mut Variable>);
-    fn get_input(&self) -> Vec<*mut Variable>;
+    fn get_input(&self) -> & Vec<*mut Variable>;
     fn set_output(&mut self, outputs: *mut Variable);
     fn get_output(&self) -> *mut Variable;
     fn forward(&mut self, xs: Vec<*mut Variable>) -> *mut Variable;
@@ -50,8 +53,8 @@ impl Function for Square {
         self.input = input;
     }
 
-    fn get_input(&self) -> Vec<*mut Variable> {
-        self.input
+    fn get_input(&self) -> & Vec<*mut Variable> {
+        & self.input
     }
 
     fn set_output(&mut self, oup: *mut Variable) {
@@ -65,7 +68,7 @@ impl Function for Square {
     fn forward(&mut self, xs: Vec<*mut Variable>) -> *mut Variable {
         unsafe {
             self.input = xs;
-            let x = xs[0];
+            let x = self.input[0];
             self.output = Box::into_raw(Box::new(Variable {
                 data: Some((*x).data.unwrap() * (*x).data.unwrap()),
                 grad: None,
@@ -97,8 +100,8 @@ impl Function for Exp {
         self.input = input;
     }
 
-    fn get_input(&self) -> Vec<*mut Variable> {
-        self.input
+    fn get_input(&self) -> & Vec<*mut Variable> {
+        & self.input
     }
 
     fn set_output(&mut self, oup: *mut Variable) {
@@ -203,6 +206,6 @@ fn main() {
         (*out).grad = Some(1.0);
         (*out).backward();
 
-        println!("input:{:?}", *input); 
+        println!("input:{:?}", *input);
     }
 }
