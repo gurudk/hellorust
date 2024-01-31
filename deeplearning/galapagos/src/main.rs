@@ -13,42 +13,44 @@ impl Variable {
     fn backward(&mut self) {
         unsafe {
             if let Some(func) = self.creator {
-                let x = (*func).get_input();
-                (*x).grad = Some((*func).backward(self.grad.unwrap()));
-                (*x).backward();
+                let xs = (*func).get_input();
+                for x in xs{
+                    (*x).grad = Some((*func).backward(self.grad.unwrap())[0]);
+                    (*x).backward();
+                }
             }
         }
     }
 }
 
 trait Function {
-    fn set_input(&mut self, inp: *mut Variable);
-    fn get_input(&self) -> *mut Variable;
-    fn set_output(&mut self, oup: *mut Variable);
+    fn set_input(&mut self, inputs: Vec<*mut Variable>);
+    fn get_input(&self) -> Vec<*mut Variable>;
+    fn set_output(&mut self, outputs: *mut Variable);
     fn get_output(&self) -> *mut Variable;
-    fn forward(&mut self, x: *mut Variable) -> *mut Variable;
-    fn backward(&mut self, gy: f64) -> f64;
-    fn execute(&mut self, x: *mut Variable) -> *mut Variable;
+    fn forward(&mut self, xs: Vec<*mut Variable>) -> *mut Variable;
+    fn backward(&mut self, gy: f64) -> Vec<f64>;
+    fn execute(&mut self, x: Vec<*mut Variable>) -> *mut Variable;
 }
 
 #[derive(Debug)]
 struct Square {
-    input: *mut Variable,
+    input: Vec<*mut Variable>,
     output: *mut Variable,
 }
 
 #[derive(Debug)]
 struct Exp {
-    input: *mut Variable,
+    input: Vec<*mut Variable>,
     output: *mut Variable,
 }
 
 impl Function for Square {
-    fn set_input(&mut self, inp: *mut Variable) {
-        self.input = inp;
+    fn set_input(&mut self, input: Vec<*mut Variable>) {
+        self.input = input;
     }
 
-    fn get_input(&self) -> *mut Variable {
+    fn get_input(&self) -> Vec<*mut Variable> {
         self.input
     }
 
@@ -60,11 +62,12 @@ impl Function for Square {
         self.output
     }
 
-    fn forward(&mut self, x: *mut Variable) -> *mut Variable {
+    fn forward(&mut self, xs: Vec<*mut Variable>) -> *mut Variable {
         unsafe {
-            self.input = x;
+            self.input = xs;
+            let x = xs[0];
             self.output = Box::into_raw(Box::new(Variable {
-                data: Some((*self.input).data.unwrap() * (*self.input).data.unwrap()),
+                data: Some((*x).data.unwrap() * (*x).data.unwrap()),
                 grad: None,
                 creator: None,
             }));
@@ -73,26 +76,28 @@ impl Function for Square {
         }
     }
 
-    fn backward(&mut self, gy: f64) -> f64 {
+    fn backward(&mut self, gy: f64) -> Vec<f64> {
         unsafe {
-            let x = self.input;
+            let x = self.input[0];
             let gx: f64 = 2.0 * (*x).data.unwrap() * gy;
             (*x).grad = Some(gx);
-            gx
+            let ret = Vec::<f64>::new();
+            ret.push(gx);
+            ret
         }
     }
 
-    fn execute(&mut self, x: *mut Variable) -> *mut Variable {
-        self.forward(x)
+    fn execute(&mut self, xs: Vec<*mut Variable>) -> *mut Variable {
+        self.forward(xs)
     }
 }
 
 impl Function for Exp {
-    fn set_input(&mut self, inp: *mut Variable) {
-        self.input = inp;
+    fn set_input(&mut self, input: Vec<*mut Variable>) {
+        self.input = input;
     }
 
-    fn get_input(&self) -> *mut Variable {
+    fn get_input(&self) -> Vec<*mut Variable> {
         self.input
     }
 
@@ -104,11 +109,12 @@ impl Function for Exp {
         self.output
     }
 
-    fn forward(&mut self, x: *mut Variable) -> *mut Variable {
+    fn forward(&mut self, xs: Vec<*mut Variable>) -> *mut Variable {
         unsafe {
-            self.input = x;
+            self.input = xs;
+            let x = self.input[0];
             self.output = Box::into_raw(Box::new(Variable {
-                data: Some((*self.input).data.unwrap().exp()),
+                data: Some((*x).data.unwrap().exp()),
                 grad: None,
                 creator: None,
             }));
@@ -117,25 +123,29 @@ impl Function for Exp {
         }
     }
 
-    fn backward(&mut self, gy: f64) -> f64 {
+    fn backward(&mut self, gy: f64) -> Vec<f64> {
         unsafe {
-            let x = self.input;
+            let x = self.input[0];
             let gx: f64 = (*x).data.unwrap().exp() * gy;
             (*x).grad = Some(gx);
-            gx
+            let ret = Vec::<f64>::new();
+            ret.push(gx);
+            ret
         }
     }
 
-    fn execute(&mut self, x: *mut Variable) -> *mut Variable {
-        self.forward(x)
+    fn execute(&mut self, xs: Vec<*mut Variable>) -> *mut Variable {
+        self.forward(xs)
     }
 }
 
 impl Square {
     fn new_with_input(input: *mut Variable) -> *mut Self {
         unsafe {
+            let mut inputs = Vec::<*mut Variable>::new();
+            inputs.push(input);
             Box::into_raw(Box::new(Self {
-                input: input,
+                input: inputs,
                 output: std::ptr::null_mut(),
             }))
         }
@@ -145,8 +155,10 @@ impl Square {
 impl Exp {
     fn new_with_input(input: *mut Variable) -> *mut Self {
         unsafe {
+            let mut inputs = Vec::<*mut Variable>::new();
+            inputs.push(input);
             Box::into_raw(Box::new(Self {
-                input: input,
+                input: inputs,
                 output: std::ptr::null_mut(),
             }))
         }
@@ -155,16 +167,20 @@ impl Exp {
 
 fn square(input: *mut Variable) -> *mut Variable {
     unsafe {
+        let mut inputs = Vec::<*mut Variable>::new();
+        inputs.push(input);
         let f = Square::new_with_input(input);
-        let out = (*f).execute(input);
+        let out = (*f).execute(inputs);
         out
     }
 }
 
 fn exp(input: *mut Variable) -> *mut Variable {
     unsafe {
+        let mut inputs = Vec::<*mut Variable>::new();
+        inputs.push(input);
         let f = Exp::new_with_input(input);
-        let out = (*f).execute(input);
+        let out = (*f).execute(inputs);
         out
     }
 }
@@ -187,6 +203,6 @@ fn main() {
         (*out).grad = Some(1.0);
         (*out).backward();
 
-        println!("input:{:?}", *input);
+        println!("input:{:?}", *input); 
     }
 }
