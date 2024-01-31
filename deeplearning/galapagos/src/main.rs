@@ -81,7 +81,7 @@ impl Function for Square {
             let x = self.input[0];
             let gx: f64 = 2.0 * (*x).data.unwrap() * gy;
             (*x).grad = Some(gx);
-            let ret = Vec::<f64>::new();
+            let mut ret = Vec::<f64>::new();
             ret.push(gx);
             ret
         }
@@ -128,7 +128,7 @@ impl Function for Exp {
             let x = self.input[0];
             let gx: f64 = (*x).data.unwrap().exp() * gy;
             (*x).grad = Some(gx);
-            let ret = Vec::<f64>::new();
+            let mut ret = Vec::<f64>::new();
             ret.push(gx);
             ret
         }
