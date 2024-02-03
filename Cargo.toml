@@ -1,4 +1,4 @@
-workspace = { members = ["algorithms/bst", "rustlang/vec-example"] }
+workspace = { members = ["algorithms/bst", "rustlang/cow-more-use", "rustlang/vec-example", "rustlang/while-let"] }
 [package]
 name = "hellorust"
 version = "0.1.0"
