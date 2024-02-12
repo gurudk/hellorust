@@ -133,7 +133,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "str_example"
+version = "0.1.0"
+
+[[package]]
 name = "vec-example"
+version = "0.1.0"
+
+[[package]]
+name = "vec_alloc"
+version = "0.1.0"
+
+[[package]]
+name = "vec_from_raw_parts"
 version = "0.1.0"
 
 [[package]]
