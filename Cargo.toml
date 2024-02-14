@@ -1,4 +1,4 @@
-workspace = { members = ["algorithms/bst", "rustlang/cow-more-use", "rustlang/str_example", "rustlang/vec-example", "rustlang/vec_alloc", "rustlang/vec_from_raw_parts", "rustlang/while-let"] }
+workspace = { members = ["algorithms/bst", "crates/ndarray_play", "rustlang/cow-more-use", "rustlang/str_example", "rustlang/vec-example", "rustlang/vec_alloc", "rustlang/vec_from_raw_parts", "rustlang/while-let"] }
 [package]
 name = "hellorust"
 version = "0.1.0"
