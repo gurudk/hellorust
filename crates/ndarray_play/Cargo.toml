@@ -2,3 +2,6 @@
 name = "ndarray_play"
 version = "0.1.0"
 edition = "2021"
+
+[workspace]
+members = ["complex", "factorial", "stat_mean", "stat_partition"]

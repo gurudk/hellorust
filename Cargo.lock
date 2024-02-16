@@ -50,6 +50,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "iter_fold"
+version = "0.1.0"
+
+[[package]]
+name = "iter_next"
+version = "0.1.0"
+
+[[package]]
 name = "libc"
 version = "0.2.152"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -131,6 +139,10 @@ version = "0.1.0"
 dependencies = [
  "quickcheck",
 ]
+
+[[package]]
+name = "slice_split"
+version = "0.1.0"
 
 [[package]]
 name = "str_example"
