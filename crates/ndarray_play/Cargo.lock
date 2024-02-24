@@ -102,6 +102,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "stat_freq"
+version = "0.1.0"
+
+[[package]]
 name = "stat_mean"
 version = "0.1.0"
 

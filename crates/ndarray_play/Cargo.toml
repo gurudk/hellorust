@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = ["complex", "factorial", "stat_mean", "stat_partition"]
+members = ["complex", "factorial", "stat_deviation", "stat_freq", "stat_mean", "stat_partition"]
