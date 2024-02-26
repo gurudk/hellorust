@@ -149,6 +149,10 @@ name = "slice_split"
 version = "0.1.0"
 
 [[package]]
+name = "stack"
+version = "0.1.0"
+
+[[package]]
 name = "str_example"
 version = "0.1.0"
 
@@ -158,6 +162,10 @@ version = "0.1.0"
 
 [[package]]
 name = "vec_alloc"
+version = "0.1.0"
+
+[[package]]
+name = "vec_fold"
 version = "0.1.0"
 
 [[package]]
