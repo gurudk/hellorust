@@ -54,6 +54,18 @@ impl<T> LinkList<T> {
     fn into_iter(self) -> IntoIter<T> {
         IntoIter(self)
     }
+
+    fn iter(&self) -> Iter<T> {
+        Iter {
+            next: self.head.as_deref(),
+        }
+    }
+
+    fn iter_mut(&mut self) -> IterMut<T> {
+        IterMut {
+            next: self.head.as_deref_mut(),
+        }
+    }
 }
 
 struct IntoIter<T>(LinkList<T>);
@@ -62,6 +74,36 @@ impl<T> Iterator for IntoIter<T> {
     fn next(&mut self) -> Option<Self::Item> {
         //iterator only provide iterate function, just a place to call pop
         self.0.pop()
+    }
+}
+
+struct Iter<'a, T: 'a> {
+    next: Option<&'a Node<T>>,
+}
+
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+    fn next(&mut self) -> Option<Self::Item> {
+        //Option<&Node<T>> --> Option<&T>
+        self.next.map(|node| {
+            self.next = node.next.as_deref();
+            &node.element
+        })
+    }
+}
+
+struct IterMut<'a, T: 'a> {
+    next: Option<&'a mut Node<T>>,
+}
+
+impl<'a, T> Iterator for IterMut<'a, T> {
+    type Item = &'a mut T;
+    fn next(&mut self) -> Option<Self::Item> {
+        //Option<&Node<T>> --> Option<&T>
+        self.next.take().map(|node| {
+            self.next = node.next.as_deref_mut();
+            &mut node.element
+        })
     }
 }
 
@@ -74,6 +116,16 @@ fn main() {
     println!("{:?}", ll);
 
     ll.push(2);
+
+    println!("{:?}", ll);
+
+    for item in ll.iter() {
+        println!("{:?}", item);
+    }
+
+    for item in ll.iter_mut() {
+        *item += 2;
+    }
 
     println!("{:?}", ll);
 }
