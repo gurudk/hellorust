@@ -58,6 +58,22 @@ impl<T: Clone> ListStack<T> {
     fn peek_mut(&mut self) -> Option<&mut T> {
         self.top.as_deref_mut().map(|node| &mut node.data)
     }
+
+    fn into_iter(self) -> IntoIter<T> {
+        IntoIter(self)
+    }
+
+    fn iter(&self) -> Iter<T> {
+        Iter {
+            next: self.top.as_deref(),
+        }
+    }
+
+    fn iter_mut(&mut self) -> IterMut<T> {
+        IterMut {
+            next: self.top.as_deref_mut(),
+        }
+    }
 }
 
 struct IntoIter<T>(ListStack<T>);
@@ -82,6 +98,20 @@ impl<'a, T: 'a> Iterator for Iter<'a, T> {
     }
 }
 
+struct IterMut<'a, T> {
+    next: Option<&'a mut Node<T>>,
+}
+
+impl<'a, T: 'a> Iterator for IterMut<'a, T> {
+    type Item = &'a mut T;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.next.take().map(|node| {
+            self.next = node.next.as_deref_mut();
+            &mut node.data
+        })
+    }
+}
+
 fn main() {
     println!("Hello, world!");
     let mut ls: ListStack<i32> = ListStack::new();
@@ -96,6 +126,20 @@ fn main() {
     if let Some(data) = pm {
         *data = 666
     }
+    println!("{:?}", ls);
+
+    ls.push(444);
+    ls.push(232);
+    ls.push(888);
+
+    for item in ls.iter() {
+        println!("{:?}", item);
+    }
+
+    for item in ls.iter_mut() {
+        *item = *item * 2;
+    }
+
     println!("{:?}", ls);
 }
 
