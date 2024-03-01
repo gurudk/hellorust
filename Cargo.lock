@@ -16,6 +16,10 @@ name = "box_option_take"
 version = "0.1.0"
 
 [[package]]
+name = "bubblesort"
+version = "0.1.0"
+
+[[package]]
 name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
