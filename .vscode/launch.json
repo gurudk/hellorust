@@ -4,8 +4,746 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
-        
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'rust-bst'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=rust-bst",
+                    "--package=rust-bst"
+                ],
+                "filter": {
+                    "name": "rust-bst",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'rust-bst'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=rust-bst",
+                    "--package=rust-bst"
+                ],
+                "filter": {
+                    "name": "rust-bst",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'bubblesort'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=bubblesort",
+                    "--package=bubblesort"
+                ],
+                "filter": {
+                    "name": "bubblesort",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'bubblesort'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=bubblesort",
+                    "--package=bubblesort"
+                ],
+                "filter": {
+                    "name": "bubblesort",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'deque'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=deque",
+                    "--package=deque"
+                ],
+                "filter": {
+                    "name": "deque",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'deque'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=deque",
+                    "--package=deque"
+                ],
+                "filter": {
+                    "name": "deque",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'insertsort'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=insertsort",
+                    "--package=insertsort"
+                ],
+                "filter": {
+                    "name": "insertsort",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'insertsort'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=insertsort",
+                    "--package=insertsort"
+                ],
+                "filter": {
+                    "name": "insertsort",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'linklist'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=linklist",
+                    "--package=linklist"
+                ],
+                "filter": {
+                    "name": "linklist",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'linklist'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=linklist",
+                    "--package=linklist"
+                ],
+                "filter": {
+                    "name": "linklist",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'liststack'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=liststack",
+                    "--package=liststack"
+                ],
+                "filter": {
+                    "name": "liststack",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'liststack'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=liststack",
+                    "--package=liststack"
+                ],
+                "filter": {
+                    "name": "liststack",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'queue'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=queue",
+                    "--package=queue"
+                ],
+                "filter": {
+                    "name": "queue",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'queue'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=queue",
+                    "--package=queue"
+                ],
+                "filter": {
+                    "name": "queue",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'stack'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=stack",
+                    "--package=stack"
+                ],
+                "filter": {
+                    "name": "stack",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'stack'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=stack",
+                    "--package=stack"
+                ],
+                "filter": {
+                    "name": "stack",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'box_option_take'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=box_option_take",
+                    "--package=box_option_take"
+                ],
+                "filter": {
+                    "name": "box_option_take",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'box_option_take'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=box_option_take",
+                    "--package=box_option_take"
+                ],
+                "filter": {
+                    "name": "box_option_take",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'cow-more-use'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=cow-more-use",
+                    "--package=cow-more-use"
+                ],
+                "filter": {
+                    "name": "cow-more-use",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'cow-more-use'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=cow-more-use",
+                    "--package=cow-more-use"
+                ],
+                "filter": {
+                    "name": "cow-more-use",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'iter_fold'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=iter_fold",
+                    "--package=iter_fold"
+                ],
+                "filter": {
+                    "name": "iter_fold",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'iter_fold'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=iter_fold",
+                    "--package=iter_fold"
+                ],
+                "filter": {
+                    "name": "iter_fold",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'iter_next'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=iter_next",
+                    "--package=iter_next"
+                ],
+                "filter": {
+                    "name": "iter_next",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'iter_next'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=iter_next",
+                    "--package=iter_next"
+                ],
+                "filter": {
+                    "name": "iter_next",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'keyword_ref'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=keyword_ref",
+                    "--package=keyword_ref"
+                ],
+                "filter": {
+                    "name": "keyword_ref",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'keyword_ref'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=keyword_ref",
+                    "--package=keyword_ref"
+                ],
+                "filter": {
+                    "name": "keyword_ref",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'slice_split'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=slice_split",
+                    "--package=slice_split"
+                ],
+                "filter": {
+                    "name": "slice_split",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'slice_split'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=slice_split",
+                    "--package=slice_split"
+                ],
+                "filter": {
+                    "name": "slice_split",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'str_example'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=str_example",
+                    "--package=str_example"
+                ],
+                "filter": {
+                    "name": "str_example",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'str_example'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=str_example",
+                    "--package=str_example"
+                ],
+                "filter": {
+                    "name": "str_example",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'vec-example'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=vec-example",
+                    "--package=vec-example"
+                ],
+                "filter": {
+                    "name": "vec-example",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'vec-example'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=vec-example",
+                    "--package=vec-example"
+                ],
+                "filter": {
+                    "name": "vec-example",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'vec_alloc'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=vec_alloc",
+                    "--package=vec_alloc"
+                ],
+                "filter": {
+                    "name": "vec_alloc",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'vec_alloc'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=vec_alloc",
+                    "--package=vec_alloc"
+                ],
+                "filter": {
+                    "name": "vec_alloc",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'vec_fold'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=vec_fold",
+                    "--package=vec_fold"
+                ],
+                "filter": {
+                    "name": "vec_fold",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'vec_fold'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=vec_fold",
+                    "--package=vec_fold"
+                ],
+                "filter": {
+                    "name": "vec_fold",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'vec_from_raw_parts'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=vec_from_raw_parts",
+                    "--package=vec_from_raw_parts"
+                ],
+                "filter": {
+                    "name": "vec_from_raw_parts",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'vec_from_raw_parts'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=vec_from_raw_parts",
+                    "--package=vec_from_raw_parts"
+                ],
+                "filter": {
+                    "name": "vec_from_raw_parts",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'while-let'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=while-let",
+                    "--package=while-let"
+                ],
+                "filter": {
+                    "name": "while-let",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'while-let'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=while-let",
+                    "--package=while-let"
+                ],
+                "filter": {
+                    "name": "while-let",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
         {
             "type": "lldb",
             "request": "launch",

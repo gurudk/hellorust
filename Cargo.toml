@@ -1,4 +1,4 @@
-workspace = { members = ["algorithms/bst", "algorithms/bubblesort", "algorithms/deque", "algorithms/linklist", "algorithms/liststack", "algorithms/queue", "algorithms/stack", "rustlang/box_option_take", "rustlang/cow-more-use", "rustlang/iter_fold", "rustlang/iter_next", "rustlang/keyword_ref", "rustlang/slice_split", "rustlang/str_example", "rustlang/vec-example", "rustlang/vec_alloc", "rustlang/vec_fold", "rustlang/vec_from_raw_parts", "rustlang/while-let"] }
+workspace = { members = ["algorithms/bst", "algorithms/bubblesort", "algorithms/deque", "algorithms/insertsort", "algorithms/linklist", "algorithms/liststack", "algorithms/queue", "algorithms/stack", "rustlang/box_option_take", "rustlang/cow-more-use", "rustlang/iter_fold", "rustlang/iter_next", "rustlang/keyword_ref", "rustlang/slice_split", "rustlang/str_example", "rustlang/vec-example", "rustlang/vec_alloc", "rustlang/vec_fold", "rustlang/vec_from_raw_parts", "rustlang/while-let"] }
 [package]
 name = "hellorust"
 version = "0.1.0"
