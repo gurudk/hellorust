@@ -5,21 +5,18 @@ fn insert_sort(data: &mut [i32]) {
     }
 
     for i in 1..end {
-        let temp = data[i];
+        if data[i] < data[i - 1] {
+            let mut curr = i;
+            while curr > 0 {
+                if data[curr - 1] > data[curr] {
+                    let mut temp = data[curr];
+                    data[curr] = data[curr - 1];
+                    data[curr - 1] = temp;
+                }
 
-        if data[i - 1] > temp {
-            let mut curr = i - 1;
-            loop {
-                if data[curr] > temp {
-                    //右移
-                    data[i] = data[i - 1];
-                    curr -= 1;
-                } 
+                curr -= 1;
             }
-
-            //当前值比小于等于排序值，把temp放在curr+1位置,排序结束
-            data[curr + 1] = temp;
-        }
+        } 
     }
 }
 
