@@ -34,7 +34,7 @@ fn partition(data:&mut[i32], low:usize, high:usize)->usize{
 fn main() {
     println!("Hello, world!");
 
-    let mut list = [4,2,65,6,6,478,857,3,3,758,9523,2];
+    let mut list = [5,5,5];
     let high = list.len() - 1;
     let pivot = quick_sort(&mut list, 0, high);
     println!("{:?}",list);
