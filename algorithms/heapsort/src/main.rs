@@ -12,7 +12,7 @@ fn main() {
     }
 
     println!("{:?}", arr);
-    // binsert_sort(&mut arr);
+    heap_sort(&mut arr);
     println! {"ordered arr:{:?}",arr};
 }
 
@@ -22,7 +22,7 @@ fn heap_sort(data: &mut [i32]) {
     }
 
     let end = data.len();
-    for i in (1..end).rev() {
+    for i in (1..=end).rev() {
         build_heap(&mut data[0..i]);
     }
 }
