@@ -62,7 +62,7 @@ fn tim_sort(data: &mut [i32]) {
 
     let minrun = cal_minrun(data.len());
     /**** test minrun */
-    // let minrun = 16;
+    let minrun = 8;
 
     let end = data.len();
 
@@ -123,7 +123,36 @@ fn tim_sort(data: &mut [i32]) {
         curr = batch_end + 2;
     }
 
+    merge_all_data(&mut batch_stack, data);
+
     // println!("batches:{:?}", batch_stack);
+}
+
+fn merge_all_data(stack: &mut Vec<Batch>, data: &mut [i32]) {
+    if stack.len() < 2 {
+        return;
+    }
+
+    while (*stack).len() > 1 {
+        match (*stack).pop() {
+            Some(b2) => match (*stack).pop() {
+                Some(b1) => {
+                    merge_batch_data(&b1, &b2, data);
+                    stack.push(Batch::new(b1.start, b2.end));
+                }
+                None => {}
+            },
+            None => {}
+        }
+    }
+}
+
+fn merge_batch_data(b1: &Batch, b2: &Batch, data: &mut [i32]) {
+    if (*b2).start > (*b1).end {
+        for j in (*b2).start..=(*b2).end {
+            insert_last(&mut data[b1.start..j + 1]);
+        }
+    }
 }
 
 fn merge_batch(stack: &mut Vec<Batch>, C: Batch, data: &mut [i32]) {
@@ -134,7 +163,10 @@ fn merge_batch(stack: &mut Vec<Batch>, C: Batch, data: &mut [i32]) {
         if C.size >= stack[0].size {
             //merge A & B
             match stack.pop() {
-                Some(A) => stack.push(Batch::new(A.start, C.end)),
+                Some(A) => {
+                    merge_batch_data(&A, &C, data);
+                    stack.push(Batch::new(A.start, C.end));
+                }
                 None => {}
             }
         } else {
@@ -149,10 +181,11 @@ fn merge_batch(stack: &mut Vec<Batch>, C: Batch, data: &mut [i32]) {
                         if A.size >= C.size {
                             //merge B & C
                             stack.push(A);
+                            merge_batch_data(&B, &C, data);
                             merge_batch(stack, Batch::new(B.start, C.end), data);
-                            //*************此处需要递归***************** */
                         } else {
                             //merge A & B
+                            merge_batch_data(&A, &B, data);
                             stack.push(Batch::new(A.start, B.end));
                             stack.push(C);
                         }
@@ -160,6 +193,7 @@ fn merge_batch(stack: &mut Vec<Batch>, C: Batch, data: &mut [i32]) {
                         stack.push(A);
                         if B.size <= C.size {
                             //merge B & C
+                            merge_batch_data(&B, &C, data);
                             stack.push(Batch::new(B.start, C.end));
                         } else {
                             stack.push(B);
