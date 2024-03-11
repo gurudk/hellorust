@@ -9,17 +9,17 @@ fn main() {
     // for i in 0..=0 {
     //     println!("000");
     // }
-    let mut arr: [i32; 20] = [0; 20];
+    let mut arr: [i32; 500] = [0; 500];
 
     let mut rng = rand::thread_rng();
-    let uni = Uniform::from(1..100);
+    let uni = Uniform::from(1..500);
     for i in 0..arr.len() {
         arr[i] = uni.sample(&mut rng);
     }
 
-    let mut arr = [
-        20, 31, 37, 46, 68, 82, 88, 7, 16, 16, 19, 23, 80, 86, 6, 13, 20, 32, 52, 86,
-    ];
+    // let mut arr = [
+    //     20, 31, 37, 46, 68, 82, 88, 7, 16, 16, 19, 23, 80, 86, 6, 13, 20, 32, 52, 86,
+    // ];
 
     println!("{:?}", arr);
     tim_sort(&mut arr);
@@ -62,7 +62,7 @@ fn tim_sort(data: &mut [i32]) {
 
     let minrun = cal_minrun(data.len());
     /**** test minrun */
-    let minrun = 5;
+    // let minrun = 16;
 
     let end = data.len();
 
@@ -80,7 +80,11 @@ fn tim_sort(data: &mut [i32]) {
         //处理只有1个元素和两个元素的情况
         if (end - batch_start) < 3 {
             insert_last(&mut data[batch_start..]);
-            batch_stack.push(Batch::new(batch_start, end - 1));
+            merge_batch(
+                &mut batch_stack,
+                Batch::new(batch_start, end - 1),
+                &mut data[..],
+            );
             break;
         }
 
@@ -103,22 +107,74 @@ fn tim_sort(data: &mut [i32]) {
             let this_batch_end = min(end - 1, batch_start + minrun - 1);
             for j in batch_end + 1..=this_batch_end {
                 //扩充当前批次
-                println!("before extend batch:{:?}", &data[batch_start..j + 1]);
+                // println!("before extend batch:{:?}", &data[batch_start..j + 1]);
                 insert_last(&mut data[batch_start..j + 1]);
-                println!("after extend batch:{:?}", &data[batch_start..j + 1]);
+                // println!("after extend batch:{:?}", &data[batch_start..j + 1]);
             }
             batch_end = this_batch_end;
         }
         //处理这个批次
-        batch_stack.push(Batch::new(batch_start, batch_end));
+        merge_batch(
+            &mut batch_stack,
+            Batch::new(batch_start, batch_end),
+            &mut data[..],
+        );
 
         curr = batch_end + 2;
     }
 
-    println!("batches:{:?}", batch_stack);
+    // println!("batches:{:?}", batch_stack);
 }
 
-fn merge_batch(stack: &mut Vec<Batch>, curr_batch: Batch, data: &mut [i32]) {}
+fn merge_batch(stack: &mut Vec<Batch>, C: Batch, data: &mut [i32]) {
+    println!("before merge batchs:{:?}, C:{:?}", &stack, &C);
+    if stack.is_empty() {
+        stack.push(C);
+    } else if stack.len() == 1 {
+        if C.size >= stack[0].size {
+            //merge A & B
+            match stack.pop() {
+                Some(A) => stack.push(Batch::new(A.start, C.end)),
+                None => {}
+            }
+        } else {
+            //just push C
+            stack.push(C);
+        }
+    } else {
+        match stack.pop() {
+            Some(B) => match stack.pop() {
+                Some(A) => {
+                    if A.size <= B.size + C.size {
+                        if A.size >= C.size {
+                            //merge B & C
+                            stack.push(A);
+                            merge_batch(stack, Batch::new(B.start, C.end), data);
+                            //*************此处需要递归***************** */
+                        } else {
+                            //merge A & B
+                            stack.push(Batch::new(A.start, B.end));
+                            stack.push(C);
+                        }
+                    } else {
+                        stack.push(A);
+                        if B.size <= C.size {
+                            //merge B & C
+                            stack.push(Batch::new(B.start, C.end));
+                        } else {
+                            stack.push(B);
+                            stack.push(C);
+                        }
+                    }
+                }
+                None => {}
+            },
+            None => {}
+        }
+    }
+
+    println!("after merge batchs:{:?}", &stack);
+}
 
 fn reverse_slice(slice: &mut [i32]) {
     if slice.len() < 2 {
