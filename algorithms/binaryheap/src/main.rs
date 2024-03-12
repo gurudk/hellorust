@@ -77,6 +77,9 @@ impl BinaryHeap {
     }
 
     fn move_down(&mut self, index: usize) {
+        if self.size <= 1 {
+            return;
+        }
         let mut parent = index;
         let mut left = 2 * parent;
         let mut right = 2 * parent + 1;
