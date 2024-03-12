@@ -70,6 +70,7 @@ impl BinaryHeap {
             let ret = self.data.pop();
             self.size -= 1;
             self.move_down(0);
+
             return ret;
         }
     }
@@ -95,9 +96,6 @@ impl BinaryHeap {
                 left
             };
             self.data.swap(parent, min_child);
-            if min_child <= 0 {
-                return;
-            }
             self.move_down(min_child);
         }
     }
