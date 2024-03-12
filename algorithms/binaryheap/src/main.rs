@@ -64,6 +64,7 @@ impl BinaryHeap {
         }
 
         if self.size == 1 {
+            self.size -= 1;
             return self.data.pop();
         } else {
             self.data.swap(0, self.size - 1);
