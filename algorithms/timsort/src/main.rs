@@ -155,6 +155,8 @@ fn merge_batch_data(b1: &Batch, b2: &Batch, data: &mut [i32]) {
     }
 }
 
+
+//keep A>B+C, B>C
 fn merge_batch(stack: &mut Vec<Batch>, C: Batch, data: &mut [i32]) {
     println!("before merge batchs:{:?}, C:{:?}", &stack, &C);
     if stack.is_empty() {
@@ -182,6 +184,7 @@ fn merge_batch(stack: &mut Vec<Batch>, C: Batch, data: &mut [i32]) {
                             //merge B & C
                             stack.push(A);
                             merge_batch_data(&B, &C, data);
+                            //recurse the batch of B merge C, size(BC) may be large than A
                             merge_batch(stack, Batch::new(B.start, C.end), data);
                         } else {
                             //merge A & B
