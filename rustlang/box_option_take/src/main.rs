@@ -26,10 +26,46 @@ fn main() {
     let b = (*bb.as_ref() as i32).pow(2);
     println!("{:?}", b);
     print_type_of(&bb.as_ref());
+
+    println!("=============test box reference ============");
+
+    let ts = TestStruct {
+        field1: 12121,
+        field2: "test joint",
+    };
+
+    let tt = TestStruct {
+        field1: 12121,
+        field2: "test joint",
+    };
+
+    let bb = &Some(Box::new(ts));
+    let r1 = &Some(tt);
+    match &&bb {
+        Some(k) => {
+            println!("{:?}, {}", k, k.field1);
+            print_type_of(&k);
+        }
+        None => (),
+    };
+
+    match r1 {
+        Some(r) => {
+            println!("r1.field1:{},r1.field2:{}", r.field1, r.field2);
+            print_type_of(&r);
+        }
+        None => (),
+    }
 }
 
 fn print_type_of<T>(_: &T) {
     println!("{}", std::any::type_name::<T>())
+}
+
+#[derive(Debug)]
+struct TestStruct<'a> {
+    field1: usize,
+    field2: &'a str,
 }
 
 // fn print_type_of1<T>(_: &T) {
