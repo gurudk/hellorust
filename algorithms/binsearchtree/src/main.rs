@@ -8,6 +8,25 @@ fn main() {
     bst.insert("123", "abc");
     bst.insert("345", "asdfafaf");
     println!("{:?}", bst);
+
+    println!("contains 123:{}", bst.contains(&"123"));
+    println!("contains 345:{}", bst.contains(&"345"));
+    println!("contains 333:{}", bst.contains(&"333"));
+
+    println!("get(\"123\"):{:?}", bst.get(&"123"));
+
+    println!("get(\"888\"):{:?}", bst.get(&"888"));
+    bst.insert("888", "that is it!");
+
+    println!("get(\"888\"):{:?}", bst.get(&"888"));
+
+    bst.insert("92", "423442424");
+    println!("{:?}", bst.max());
+    println!("{}", "888" < "9");
+}
+
+fn print_type_of<T>(_: &T) {
+    println!("{}", std::any::type_name::<T>())
 }
 
 #[derive(Debug)]
@@ -29,6 +48,97 @@ where
             value: None,
             left: None,
             right: None,
+        }
+    }
+
+    fn is_empty(&self) -> bool {
+        self.key.is_none()
+    }
+
+    fn contains(&self, key: &T) -> bool {
+        match &self.key {
+            Some(k) => {
+                if *k == *key {
+                    return true;
+                } else {
+                    if *key < *k {
+                        match &self.left {
+                            Some(ref l) => {
+                                return l.contains(key);
+                            }
+                            None => {
+                                return false;
+                            }
+                        }
+                    } else {
+                        match &self.right {
+                            Some(ref r) => {
+                                return r.contains(key);
+                            }
+                            None => {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            None => return false,
+        }
+    }
+
+    fn max(&self) -> (Option<&T>, Option<&V>) {
+        if self.is_empty() {
+            return (None, None);
+        } else {
+            // print_type_of(&self);
+            let mut r = self;
+            // print_type_of(&self);
+            while let Some(k) = &r.right {
+                print_type_of(&k);
+                r = k;
+            }
+            //as_ref() means Option<T> ----> Option<&T>
+            return ((*r).key.as_ref(), r.value.as_ref());
+
+            // match &self.right {
+            //     Some(ref k) => {
+            //         return k.max();
+            //     }
+            //     None => {
+            //         return (self.key.as_ref(), self.value.as_ref());
+            //     }
+            // }
+        }
+    }
+
+    fn get(&self, key: &T) -> Option<V> {
+        match &self.key {
+            Some(k) => {
+                if *k == *key {
+                    return self.value;
+                } else {
+                    if *key < *k {
+                        match &self.left {
+                            Some(ref l) => {
+                                return l.get(key);
+                            }
+                            None => {
+                                return None;
+                            }
+                        }
+                    } else {
+                        match &self.right {
+                            Some(ref r) => {
+                                return r.get(key);
+                            }
+                            None => {
+                                return None;
+                            }
+                        }
+                    }
+                }
+            }
+            None => return None,
         }
     }
 
