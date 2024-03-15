@@ -23,6 +23,10 @@ fn main() {
     bst.insert("92", "423442424");
     println!("{:?}", bst.max());
     println!("{}", "888" < "9");
+
+    println!("the size of tree is :{}", bst.size());
+    bst.insert("456", "kfal;f");
+    println!("leaf size of tree is :{}", bst.leaf_size());
 }
 
 fn print_type_of<T>(_: &T) {
@@ -84,6 +88,72 @@ where
             }
             None => return false,
         }
+    }
+
+    fn size(&self) -> usize {
+        let mut _size = 0;
+        let root = self;
+
+        _size = self.calc_size(root, _size);
+
+        _size
+    }
+
+    fn leaf_size(&self) -> usize {
+        let mut _size = 0;
+        let root = self;
+        _size = self.go_leaf(root, _size);
+
+        _size
+    }
+
+    fn go_leaf(&self, bst: &BinSearchTree<T, V>, mut num: usize) -> usize {
+        if bst.left.is_none() && bst.right.is_none() {
+            num += 1;
+        }
+
+        match &bst.left {
+            Some(l) => {
+                num = self.go_leaf(l, num);
+            }
+            None => (),
+        }
+
+        match &bst.right {
+            Some(r) => {
+                num = self.go_leaf(r, num);
+            }
+            None => (),
+        }
+
+        num
+    }
+
+    fn calc_size(&self, bst: &BinSearchTree<T, V>, mut num: usize) -> usize {
+        println!("begin num:{:?}", num);
+
+        if !bst.key.is_none() {
+            num += 1;
+        }
+        match &bst.left {
+            Some(l) => {
+                num = bst.calc_size(l, num);
+                println!("type is:");
+                print_type_of(&l);
+            }
+            None => (),
+        };
+
+        match &bst.right {
+            Some(r) => {
+                num = bst.calc_size(r, num);
+            }
+            None => (),
+        }
+
+        println!("after num:{:?}", num);
+
+        num
     }
 
     fn max(&self) -> (Option<&T>, Option<&V>) {
@@ -173,5 +243,17 @@ where
                 None => (),
             }
         }
+    }
+}
+
+struct PreorderIterator<'a, T, V> {
+    bst: &'a Option<Box<BinSearchTree<T, V>>>,
+    queue: Vec<(Option<&'a T>, Option<&'a V>)>,
+}
+
+impl<'a, T:'a, V:'a> Iterator for PreorderIterator<'a, T, V> {
+    type Item = (Option<&'a T>, Option<&'a V>);
+    fn next(&mut self) -> Option<Self::Item> {
+        Some((None,None))
     }
 }
