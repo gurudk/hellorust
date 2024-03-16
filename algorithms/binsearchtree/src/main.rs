@@ -27,6 +27,12 @@ fn main() {
     println!("the size of tree is :{}", bst.size());
     bst.insert("456", "kfal;f");
     println!("leaf size of tree is :{}", bst.leaf_size());
+
+    // bst.preorder();
+
+    let mut pre_iter = bst.preorder_iter();
+    println!("{:?}", pre_iter.next());
+    println!("{:?}", pre_iter.next());
 }
 
 fn print_type_of<T>(_: &T) {
@@ -244,16 +250,70 @@ where
             }
         }
     }
+
+    fn preorder_iter(&self) -> PreorderIterator<T, V> {
+        let mut iter = PreorderIterator {
+            queue: Box::new(Vec::new()),
+        };
+
+        let mut vec = Vec::new();
+
+        let ret = self._preorder(Box::new(vec));
+
+        iter.queue = ret;
+        iter
+    }
+
+    fn _preorder<'a>(
+        &'a self,
+        mut vec: Box<Vec<(Option<&'a T>, Option<&'a V>)>>,
+    ) -> Box<Vec<(Option<&'a T>, Option<&'a V>)>> {
+        println!("before vec:{:?}", &vec);
+        match &self.left {
+            Some(l) => {
+                vec = l._preorder(vec);
+            }
+            None => (),
+        }
+
+        vec.push((self.key.as_ref(), self.value.as_ref()));
+
+        match &self.right {
+            Some(r) => {
+                vec = r._preorder(vec);
+            }
+            None => (),
+        }
+
+        println!("after vec:{:?}", &vec);
+        vec
+    }
+
+    fn preorder(&self) {
+        match &self.left {
+            Some(l) => {
+                l.preorder();
+            }
+            None => (),
+        }
+        println!("key:{:?},value:{:?}", self.key, self.value);
+
+        match &self.right {
+            Some(r) => {
+                r.preorder();
+            }
+            None => (),
+        }
+    }
 }
 
 struct PreorderIterator<'a, T, V> {
-    bst: &'a Option<Box<BinSearchTree<T, V>>>,
-    queue: Vec<(Option<&'a T>, Option<&'a V>)>,
+    queue: Box<Vec<(Option<&'a T>, Option<&'a V>)>>,
 }
 
-impl<'a, T:'a, V:'a> Iterator for PreorderIterator<'a, T, V> {
+impl<'a, T: 'a, V: 'a> Iterator for PreorderIterator<'a, T, V> {
     type Item = (Option<&'a T>, Option<&'a V>);
     fn next(&mut self) -> Option<Self::Item> {
-        Some((None,None))
+        Some(self.queue.remove(0))
     }
 }
