@@ -31,8 +31,12 @@ fn main() {
     // bst.preorder();
 
     let mut pre_iter = bst.preorder_iter();
-    println!("{:?}", pre_iter.next());
-    println!("{:?}", pre_iter.next());
+
+    for item in pre_iter {
+        println!("item:{:?}", item);
+    }
+    // println!("{:?}", pre_iter.next());
+    // println!("{:?}", pre_iter.next());
 }
 
 fn print_type_of<T>(_: &T) {
@@ -252,16 +256,9 @@ where
     }
 
     fn preorder_iter(&self) -> PreorderIterator<T, V> {
-        let mut iter = PreorderIterator {
-            queue: Box::new(Vec::new()),
-        };
-
-        let mut vec = Vec::new();
-
-        let ret = self._preorder(Box::new(vec));
-
-        iter.queue = ret;
-        iter
+        PreorderIterator {
+            queue: self._preorder(Box::new(Vec::new())),
+        }
     }
 
     fn _preorder<'a>(
@@ -314,6 +311,10 @@ struct PreorderIterator<'a, T, V> {
 impl<'a, T: 'a, V: 'a> Iterator for PreorderIterator<'a, T, V> {
     type Item = (Option<&'a T>, Option<&'a V>);
     fn next(&mut self) -> Option<Self::Item> {
-        Some(self.queue.remove(0))
+        if !self.queue.is_empty() {
+            return Some(self.queue.remove(0));
+        } else {
+            return None;
+        }
     }
 }
