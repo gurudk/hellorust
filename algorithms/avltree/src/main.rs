@@ -9,15 +9,16 @@ fn main() {
     avl.insert(1);
     avl.insert(4);
     avl.insert(18);
+    avl.insert(20);
 
     println!("tree:{:?}", &avl);
 
-    // avl.levelorder();
+    avl.levelorder();
 
-    if let Some(rcnode) = &(avl.root) {
-        let root = rcnode.borrow();
-        println!("left key:{:?}", &root.left_key());
-    }
+    // if let Some(rcnode) = &avl.root {
+    //     let root = rcnode.borrow();
+    //     println!("left key:{:?}", &root.left_key());
+    // }
 }
 
 use std::cell::RefCell;
@@ -54,17 +55,18 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
 
     fn insert(&mut self, key: T) {
         if let Some(root) = &self.root {
-            self.insert_at(key, root);
+            let (is_left, deepened) = self.insert_at(key, root);
         } else {
             self.root = Some(AvlNode::new_node(key));
         }
     }
 
-    fn insert_at(&self, key: T, atnode: &Node<T>) {
+    fn insert_at(&self, key: T, atnode: &Node<T>) -> (bool, bool) {
         let mut node = atnode.borrow_mut();
+        let mut ret = (false, false);
         if let Some(k) = node.key {
             if key == k {
-                return;
+                return ret;
             }
 
             if key < k {
@@ -74,9 +76,20 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
                         let new_node = AvlNode::new_node_with_parent(key, atnode);
                         node.left = Some(new_node);
                         node.factor += 1;
+
+                        //如果是增加深度，则需要向上传播更新所有父节点的factor
+                        if node.right.is_none() {
+                            ret = (true, true);
+                        } else {
+                            ret = (true, false);
+                        }
                     }
                     Some(lnode) => {
-                        self.insert_at(key, lnode);
+                        ret = self.insert_at(key, lnode);
+                        let (is_left, deepened) = ret;
+                        if deepened {
+                            node.factor += 1;
+                        }
                     }
                 }
             } else {
@@ -85,16 +98,29 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
                         let new_node = AvlNode::new_node_with_parent(key, atnode);
                         node.right = Some(new_node);
                         node.factor -= 1;
-                        // self.update_parent_factor(atnode);
+
+                        //如果是增加深度，则需要向上传播更新所有父节点的factor
+                        if node.left.is_none() {
+                            ret = (false, true);
+                        } else {
+                            ret = (false, false);
+                        }
                     }
                     Some(rnode) => {
-                        self.insert_at(key, rnode);
+                        ret = self.insert_at(key, rnode);
+
+                        let (is_left, deepened) = ret;
+                        if deepened {
+                            node.factor -= 1;
+                        }
                     }
                 }
             }
         } else {
             node.key = Some(key);
         }
+
+        ret
     }
 
     // fn is_root(atnode:&Node<T>)->bool{
@@ -102,21 +128,27 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
 
     // }
 
-    fn update_parent_factor(&self, atnode: &Node<T>) {
-        // let clone_node = Rc::clone(&atnode);
-        // let mut node = clone_node.borrow_mut();
-        let mut node = atnode.borrow_mut();
-        while !node.parent.is_none() {
-            if let Some(p_weak) = &node.parent {
-                if let Some(p_strong) = p_weak.upgrade() {
-                    let mut parent = p_strong.borrow_mut();
-                    if node.key == parent.left_key() {
-                    } else if node.key == parent.right_key() {
-                    }
-                }
-            }
-        }
-    }
+    // fn update_parent_factor(&self, atnode: &Node<T>) {
+    //     let node = atnode.borrow();
+    //     let mut queue = VecDeque::new();
+    //     if let Some(value) = &node.parent {
+    //         queue.push_front(value.upgrade().unwrap());
+    //     }
+
+    //     while let Some(p_strong) = queue.pop_back() {
+    //         let mut parent = p_strong.borrow_mut();
+    //         if node.key == parent.left_key() {
+    //             //node is left child,
+    //             parent.factor += 1;
+    //         } else if node.key == parent.right_key() {
+    //             parent.factor -= 1;
+    //         }
+
+    //         if let Some(v) = &parent.parent {
+    //             queue.push_front(v.upgrade().unwrap());
+    //         }
+    //     }
+    // }
 
     fn levelorder(self) {
         let mut queue = VecDeque::new();
