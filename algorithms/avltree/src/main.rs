@@ -1,80 +1,199 @@
 fn main() {
     println!("Hello, world!");
-    let mut avt = AvlTree::new(5);
-    avt.insert(12);
-    avt.insert(13);
-    avt.insert(16);
-    avt.insert(18);
 
-    println!("{:?}", avt);
+    let mut avl = AvlTree::new(5);
+    avl.insert(3);
+    avl.insert(10);
+    avl.insert(6);
+    avl.insert(13);
+    avl.insert(1);
+    avl.insert(4);
+    avl.insert(18);
+
+    println!("tree:{:?}", &avl);
+
+    // avl.levelorder();
+
+    if let Some(rcnode) = &(avl.root) {
+        let root = rcnode.borrow();
+        println!("left key:{:?}", &root.left_key());
+    }
 }
+
+use std::cell::RefCell;
+use std::collections::VecDeque;
+use std::fmt::Debug;
+use std::rc::{Rc, Weak};
 
 #[derive(Debug)]
 struct AvlTree<T>
 where
-    T: Ord + Copy,
+    T: Copy + Ord,
 {
-    data: Option<T>,
-    left: Option<Box<AvlTree<T>>>,
-    right: Option<Box<AvlTree<T>>>,
-    factor: i16,
+    root: Option<Node<T>>,
 }
 
-impl<T: Ord + Copy> AvlTree<T> {
-    fn new(t: T) -> Self {
-        AvlTree {
-            data: Some(t),
+#[derive(Debug)]
+struct AvlNode<T> {
+    key: Option<T>,
+    left: Option<Node<T>>,
+    right: Option<Node<T>>,
+    parent: Option<WeakNode<T>>,
+    factor: i32,
+}
+
+type Node<T> = Rc<RefCell<AvlNode<T>>>;
+type WeakNode<T> = Weak<RefCell<AvlNode<T>>>;
+
+impl<T: Ord + Copy + Debug> AvlTree<T> {
+    fn new(key: T) -> Self {
+        Self {
+            root: Some(AvlNode::new_node(key)),
+        }
+    }
+
+    fn insert(&mut self, key: T) {
+        if let Some(root) = &self.root {
+            self.insert_at(key, root);
+        } else {
+            self.root = Some(AvlNode::new_node(key));
+        }
+    }
+
+    fn insert_at(&self, key: T, atnode: &Node<T>) {
+        let mut node = atnode.borrow_mut();
+        if let Some(k) = node.key {
+            if key == k {
+                return;
+            }
+
+            if key < k {
+                match &node.left {
+                    None => {
+                        //new left node
+                        let new_node = AvlNode::new_node_with_parent(key, atnode);
+                        node.left = Some(new_node);
+                        node.factor += 1;
+                    }
+                    Some(lnode) => {
+                        self.insert_at(key, lnode);
+                    }
+                }
+            } else {
+                match &node.right {
+                    None => {
+                        let new_node = AvlNode::new_node_with_parent(key, atnode);
+                        node.right = Some(new_node);
+                        node.factor -= 1;
+                        // self.update_parent_factor(atnode);
+                    }
+                    Some(rnode) => {
+                        self.insert_at(key, rnode);
+                    }
+                }
+            }
+        } else {
+            node.key = Some(key);
+        }
+    }
+
+    // fn is_root(atnode:&Node<T>)->bool{
+    //     let
+
+    // }
+
+    fn update_parent_factor(&self, atnode: &Node<T>) {
+        // let clone_node = Rc::clone(&atnode);
+        // let mut node = clone_node.borrow_mut();
+        let mut node = atnode.borrow_mut();
+        while !node.parent.is_none() {
+            if let Some(p_weak) = &node.parent {
+                if let Some(p_strong) = p_weak.upgrade() {
+                    let mut parent = p_strong.borrow_mut();
+                    if node.key == parent.left_key() {
+                    } else if node.key == parent.right_key() {
+                    }
+                }
+            }
+        }
+    }
+
+    fn levelorder(self) {
+        let mut queue = VecDeque::new();
+        if let Some(root) = &self.root {
+            queue.push_front(Rc::clone(&root));
+        }
+
+        while !queue.is_empty() {
+            if let Some(node) = &queue.pop_back() {
+                let avlnode = node.borrow();
+                println!("key={:?}, factor={:?}", avlnode.key, avlnode.factor);
+                if let Some(lnode) = &avlnode.left {
+                    queue.push_front(Rc::clone(&lnode));
+                }
+
+                if let Some(rnode) = &avlnode.right {
+                    queue.push_front(Rc::clone(&rnode));
+                }
+            }
+        }
+    }
+}
+
+impl<T: Ord + Copy> AvlNode<T> {
+    fn new(key: T) -> Self {
+        Self {
+            key: Some(key),
             left: None,
             right: None,
+            parent: None,
             factor: 0,
         }
     }
 
-    fn insert(&mut self, value: T) -> bool {
-        let mut ret = false;
-        match &self.data {
-            Some(d) => {
-                if value == *d {
-                    self.data = Some(value);
-                    ret = false;
-                } else if value < *d {
-                    match &mut self.left {
-                        Some(l) => {
-                            ret = l.insert(value);
-                        }
-                        //left is none
-                        None => {
-                            //左右节点都为空，插入节点作为当前左节点，当前因子加1
-                            if self.right.is_none() {
-                                ret = true;
-                            } else {
-                                ret = false;
-                            }
+    fn new_node(key: T) -> Node<T> {
+        Rc::new(RefCell::new(Self {
+            key: Some(key),
+            left: None,
+            right: None,
+            parent: None,
+            factor: 0,
+        }))
+    }
 
-                            self.factor += 1;
-                            self.left = Some(Box::new(AvlTree::new(value)));
-                        }
-                    }
-                } else {
-                    match &mut self.right {
-                        Some(r) => {
-                            ret = r.insert(value);
-                        }
-                        None => {
-                            if self.left.is_none() {
-                                ret = true;
-                            }else{
-                                ret = false;
-                            }
+    fn new_node_with_parent(key: T, p: &Node<T>) -> Node<T> {
+        Rc::new(RefCell::new(Self {
+            key: Some(key),
+            left: None,
+            right: None,
+            parent: Some(Rc::downgrade(p)),
+            factor: 0,
+        }))
+    }
 
-                            self.factor -= 1;
-                            self.right = Some(Box::new(AvlTree::new(value)));
-                        }
-                    }
-                }
-            }
-            //this node is none
-            None => self.data = Some(value),
+    fn new_with_parent(key: T, p: Node<T>) -> Self {
+        Self {
+            key: Some(key),
+            left: None,
+            right: None,
+            parent: Some(Rc::downgrade(&p)),
+            factor: 0,
+        }
+    }
+
+    fn left_key(&self) -> Option<T> {
+        if let Some(l) = &self.left {
+            l.borrow().key
+        } else {
+            None
+        }
+    }
+
+    fn right_key(&self) -> Option<T> {
+        if let Some(r) = &self.right {
+            r.borrow().key
+        } else {
+            None
         }
     }
 }
