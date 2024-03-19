@@ -41,6 +41,7 @@ struct AvlNode<T> {
     right: Option<Node<T>>,
     parent: Option<WeakNode<T>>,
     factor: i32,
+    level: usize,
 }
 
 type Node<T> = Rc<RefCell<AvlNode<T>>>;
@@ -74,6 +75,7 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
                     None => {
                         //new left node
                         let new_node = AvlNode::new_node_with_parent(key, atnode);
+                        new_node.borrow_mut().level = node.level + 1;
                         node.left = Some(new_node);
                         node.factor += 1;
 
@@ -96,6 +98,7 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
                 match &node.right {
                     None => {
                         let new_node = AvlNode::new_node_with_parent(key, atnode);
+                        new_node.borrow_mut().level = node.level + 1;
                         node.right = Some(new_node);
                         node.factor -= 1;
 
@@ -123,33 +126,6 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
         ret
     }
 
-    // fn is_root(atnode:&Node<T>)->bool{
-    //     let
-
-    // }
-
-    // fn update_parent_factor(&self, atnode: &Node<T>) {
-    //     let node = atnode.borrow();
-    //     let mut queue = VecDeque::new();
-    //     if let Some(value) = &node.parent {
-    //         queue.push_front(value.upgrade().unwrap());
-    //     }
-
-    //     while let Some(p_strong) = queue.pop_back() {
-    //         let mut parent = p_strong.borrow_mut();
-    //         if node.key == parent.left_key() {
-    //             //node is left child,
-    //             parent.factor += 1;
-    //         } else if node.key == parent.right_key() {
-    //             parent.factor -= 1;
-    //         }
-
-    //         if let Some(v) = &parent.parent {
-    //             queue.push_front(v.upgrade().unwrap());
-    //         }
-    //     }
-    // }
-
     fn levelorder(self) {
         let mut queue = VecDeque::new();
         if let Some(root) = &self.root {
@@ -159,7 +135,10 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
         while !queue.is_empty() {
             if let Some(node) = &queue.pop_back() {
                 let avlnode = node.borrow();
-                println!("key={:?}, factor={:?}", avlnode.key, avlnode.factor);
+                println!(
+                    "key={:?}, factor={:?}, level={:?}",
+                    avlnode.key, avlnode.factor, avlnode.level
+                );
                 if let Some(lnode) = &avlnode.left {
                     queue.push_front(Rc::clone(&lnode));
                 }
@@ -180,6 +159,7 @@ impl<T: Ord + Copy> AvlNode<T> {
             right: None,
             parent: None,
             factor: 0,
+            level: 0,
         }
     }
 
@@ -190,6 +170,7 @@ impl<T: Ord + Copy> AvlNode<T> {
             right: None,
             parent: None,
             factor: 0,
+            level: 0,
         }))
     }
 
@@ -200,6 +181,7 @@ impl<T: Ord + Copy> AvlNode<T> {
             right: None,
             parent: Some(Rc::downgrade(p)),
             factor: 0,
+            level: 0,
         }))
     }
 
@@ -210,6 +192,7 @@ impl<T: Ord + Copy> AvlNode<T> {
             right: None,
             parent: Some(Rc::downgrade(&p)),
             factor: 0,
+            level: 0,
         }
     }
 
