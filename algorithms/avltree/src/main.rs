@@ -19,9 +19,35 @@ fn main() {
     //     let root = rcnode.borrow();
     //     println!("left key:{:?}", &root.left_key());
     // }
+
+    println!("size:{}", avl.size());
+    println!("height:{}", avl.height());
+
+    let n20 = avl.get(20);
+    println!("n20:{:?}", n20);
+
+    let n6 = avl.get(3);
+    println!("n6:{:?}", n6);
+
+    avl.calculate_level_position();
+    println!("==================================================");
+
+    println!("avl:{:?}", avl);
+    let mut b = 1;
+    b <<= 1;
+    b += 1;
+    println!("{}", b);
+    let mut v:Vec<Option<usize>> =vec![None;10];
+    v[0] = Some(1);
+    v[9] = Some(12);
+    println!("{:?}", v);
+    // for i in 0..vec.len(){
+    //     println!("{:?}", vec[i]);
+    // }
 }
 
 use std::cell::RefCell;
+use std::cmp::max;
 use std::collections::VecDeque;
 use std::fmt::Debug;
 use std::rc::{Rc, Weak};
@@ -42,6 +68,7 @@ struct AvlNode<T> {
     parent: Option<WeakNode<T>>,
     factor: i32,
     level: usize,
+    level_position: usize,
 }
 
 type Node<T> = Rc<RefCell<AvlNode<T>>>;
@@ -62,6 +89,33 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
         }
     }
 
+    fn calculate_level_position(&self) {
+        if let Some(root) = &self.root {
+            self._cal_position(root);
+        }
+    }
+
+    fn _cal_position(&self, node: &Node<T>) {
+        let mut avlnode = node.borrow_mut();
+        match &avlnode.left {
+            Some(l) => {
+                l.borrow_mut().level_position = avlnode.level_position << 1;
+                self._cal_position(l);
+            }
+            None => (),
+        }
+
+        match &avlnode.right {
+            Some(r) => {
+                let mut rt = avlnode.level_position;
+                rt = rt << 1;
+                r.borrow_mut().level_position = rt + 1;
+                self._cal_position(r);
+            }
+            None => (),
+        }
+    }
+
     fn insert_at(&self, key: T, atnode: &Node<T>) -> (bool, bool) {
         let mut node = atnode.borrow_mut();
         let mut ret = (false, false);
@@ -79,7 +133,6 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
                         node.left = Some(new_node);
                         node.factor += 1;
 
-                        //如果是增加深度，则需要向上传播更新所有父节点的factor
                         if node.right.is_none() {
                             ret = (true, true);
                         } else {
@@ -102,7 +155,6 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
                         node.right = Some(new_node);
                         node.factor -= 1;
 
-                        //如果是增加深度，则需要向上传播更新所有父节点的factor
                         if node.left.is_none() {
                             ret = (false, true);
                         } else {
@@ -126,7 +178,7 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
         ret
     }
 
-    fn levelorder(self) {
+    fn levelorder(&self) {
         let mut queue = VecDeque::new();
         if let Some(root) = &self.root {
             queue.push_front(Rc::clone(&root));
@@ -149,6 +201,111 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
             }
         }
     }
+
+    fn get(&self, key: T) -> Option<Node<T>> {
+        match &self.root {
+            Some(root) => {
+                return self._get(key, root);
+            }
+            None => {
+                return None;
+            }
+        }
+    }
+
+    fn _get(&self, key: T, node: &Node<T>) -> Option<Node<T>> {
+        let avlnode = node.borrow();
+        if avlnode.key == Some(key) {
+            return Some(Rc::clone(node));
+        }
+        let mut ret = None;
+        if let Some(k) = avlnode.key {
+            if key < k {
+                match &avlnode.left {
+                    Some(l) => {
+                        ret = self._get(key, l);
+                    }
+                    None => (),
+                }
+            } else {
+                match &avlnode.right {
+                    Some(r) => {
+                        ret = self._get(key, r);
+                    }
+                    None => (),
+                }
+            }
+        }
+
+        ret
+    }
+
+    fn size(&self) -> usize {
+        match &self.root {
+            Some(root) => {
+                return self._size(root);
+            }
+            None => {
+                return 0;
+            }
+        }
+    }
+
+    fn height(&self) -> usize {
+        match &self.root {
+            Some(root) => {
+                return self._height(root);
+            }
+            None => {
+                return 0;
+            }
+        }
+    }
+
+    fn _height(&self, node: &Node<T>) -> usize {
+        let avlnode = node.borrow();
+        let mut left_height = 0;
+        let mut right_height = 0;
+        match &avlnode.left {
+            Some(l) => {
+                left_height = self._height(l);
+            }
+            None => (),
+        }
+
+        match &avlnode.right {
+            Some(r) => {
+                right_height = self._height(r);
+            }
+            None => (),
+        }
+
+        1 + max(left_height, right_height)
+    }
+
+    fn _size(&self, node: &Node<T>) -> usize {
+        let avlnode = node.borrow();
+
+        let mut left_size = 0;
+        let mut right_size = 0;
+        match &avlnode.left {
+            Some(l) => {
+                left_size += self._size(l);
+            }
+            None => (),
+        }
+
+        match &avlnode.right {
+            Some(r) => {
+                right_size += self._size(r);
+            }
+            None => (),
+        }
+
+        left_size + right_size + 1
+    }
+
+    fn render(&self) {}
 }
 
 impl<T: Ord + Copy> AvlNode<T> {
@@ -160,6 +317,7 @@ impl<T: Ord + Copy> AvlNode<T> {
             parent: None,
             factor: 0,
             level: 0,
+            level_position: 0,
         }
     }
 
@@ -171,6 +329,7 @@ impl<T: Ord + Copy> AvlNode<T> {
             parent: None,
             factor: 0,
             level: 0,
+            level_position: 0,
         }))
     }
 
@@ -182,6 +341,7 @@ impl<T: Ord + Copy> AvlNode<T> {
             parent: Some(Rc::downgrade(p)),
             factor: 0,
             level: 0,
+            level_position: 0,
         }))
     }
 
@@ -193,6 +353,7 @@ impl<T: Ord + Copy> AvlNode<T> {
             parent: Some(Rc::downgrade(&p)),
             factor: 0,
             level: 0,
+            level_position: 0,
         }
     }
 
