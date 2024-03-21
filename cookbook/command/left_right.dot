@@ -1,0 +1,28 @@
+graph binary {
+root -- A1
+root -- B1
+A11 [style=invis]
+A1 -- A11 [style=invis];
+A1Center [style=invis, width=0, label=""];
+A1 -- A1Center [style=invis];
+A1 -- A12 ;
+A121 [style=invis, width=0, label=""];
+A122 [style=invis, width=0, label=""];
+A12 -- A121[style=invis];
+A12 -- A122[style=invis];
+A12-- A123;
+{rank=same A11 -- A1Center -- A12 [style=invis] }
+
+
+B1 -- B11 ;
+B11 -- B111;
+B11 -- B112;
+B1Center [style=invis, width=0, label=""];
+B1 -- B1Center [style=invis];
+B1 -- B12 ;
+B13[shape=point];
+B14[shape=point];
+B12 -- B13;
+B12 -- B14;
+{rank=same B11 -- B1Center -- B12 [style=invis] }
+}
