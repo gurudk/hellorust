@@ -1,3 +1,7 @@
+pub mod asciidraw;
+
+use crate::asciidraw::AsciiDraw;
+
 fn main() {
     println!("Hello, world!");
 
@@ -37,13 +41,35 @@ fn main() {
     b <<= 1;
     b += 1;
     println!("{}", b);
-    let mut v:Vec<Option<usize>> =vec![None;10];
+    let mut v: Vec<Option<usize>> = vec![None; 10];
     v[0] = Some(1);
     v[9] = Some(12);
     println!("{:?}", v);
     // for i in 0..vec.len(){
     //     println!("{:?}", vec[i]);
     // }
+
+    let mut asc = AsciiDraw::new(100, 100, ' ');
+    asc.line(20, 20, 20, 40, '-')
+        .line(40, 40, 20, 40, '-')
+        .circle(40, 40, 10, 'd')
+        .circle(40, 40, 8, '.')
+        .line(0, 0, 20, 20, '\\')
+        .line(40, 0, 20, 20, '/')
+        .line(0, 0, 15, 20, '.')
+        .line(10, 80, 100, 10, '=')
+        .draw_box(50, 70, 2, String::from("abcd"))
+        .draw_circle(50, 80, 3, '.', 5, String::from("3"))
+        .draw_box(60, 70, 1, String::from("4"))
+        .draw_box_center(20, 20, 1, String::from("8"))
+        // .draw_circle(20, 20, 3, '#', 5, String::from("3"))
+        .render();
+
+    let nodes = avl.level_values(0);
+    let node = nodes[0];
+    println!("{:?}", node);
+    println!("{:?}", avl.level_values(4));
+    avl.draw_list_horizontal(&mut asc, 5, 90, 10, *avl.level_values(2));
 }
 
 use std::cell::RefCell;
@@ -55,7 +81,7 @@ use std::rc::{Rc, Weak};
 #[derive(Debug)]
 struct AvlTree<T>
 where
-    T: Copy + Ord,
+    T: Copy + Ord + ToString,
 {
     root: Option<Node<T>>,
 }
@@ -74,7 +100,7 @@ struct AvlNode<T> {
 type Node<T> = Rc<RefCell<AvlNode<T>>>;
 type WeakNode<T> = Weak<RefCell<AvlNode<T>>>;
 
-impl<T: Ord + Copy + Debug> AvlTree<T> {
+impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
     fn new(key: T) -> Self {
         Self {
             root: Some(AvlNode::new_node(key)),
@@ -305,7 +331,60 @@ impl<T: Ord + Copy + Debug> AvlTree<T> {
         left_size + right_size + 1
     }
 
+    fn level_values(&self, height: usize) -> Box<Vec<Option<T>>> {
+        let count = 2_usize.pow(height as u32);
+        let mut vec: Vec<Option<T>> = vec![None; count];
+
+        let mut queue = VecDeque::new();
+        if let Some(root) = &self.root {
+            queue.push_front(Rc::clone(&root));
+        }
+
+        while !queue.is_empty() {
+            if let Some(node) = &queue.pop_back() {
+                let avlnode = node.borrow();
+                // println!(
+                //     "key={:?}, factor={:?}, level={:?}",
+                //     avlnode.key, avlnode.factor, avlnode.level
+                // );
+                if height == avlnode.level {
+                    vec[avlnode.level_position] = Some(avlnode.key.unwrap().clone());
+                }
+
+                if let Some(lnode) = &avlnode.left {
+                    queue.push_front(Rc::clone(&lnode));
+                }
+
+                if let Some(rnode) = &avlnode.right {
+                    queue.push_front(Rc::clone(&rnode));
+                }
+            }
+        }
+
+        Box::new(vec)
+    }
+
     fn render(&self) {}
+
+    fn draw_list_horizontal(
+        &self,
+        pen: &mut AsciiDraw,
+        x0: usize,
+        y0: usize,
+        interval: usize,
+        list: Vec<Option<T>>,
+    ) {
+        for i in 0..list.len() {
+            if !list[i].is_none() {
+                let s = list[i].unwrap().to_string();
+                let len = s.chars().count();
+                pen.draw_box(x0 + i * interval, y0, len, s);
+                println!("x,y={}{}", x0 + i * interval, y0);
+            }
+        }
+
+        pen.render();
+    }
 }
 
 impl<T: Ord + Copy> AvlNode<T> {
