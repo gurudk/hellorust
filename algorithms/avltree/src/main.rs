@@ -1,19 +1,21 @@
 pub mod asciidraw;
+pub mod svgdraw;
 
 use crate::asciidraw::AsciiDraw;
+use crate::svgdraw::SvgDraw;
+
+use rand::distributions::{Distribution, Uniform};
 
 fn main() {
     println!("Hello, world!");
 
-    let mut avl = AvlTree::new(5);
-    avl.insert(3);
-    avl.insert(10);
-    avl.insert(6);
-    avl.insert(13);
-    avl.insert(1);
-    avl.insert(4);
-    avl.insert(18);
-    avl.insert(20);
+    let mut avl = AvlTree::new(50);
+
+    let mut rng = rand::thread_rng();
+    let uni = Uniform::from(1..100);
+    for i in 0..13 {
+        avl.insert(uni.sample(&mut rng));
+    }
 
     println!("tree:{:?}", &avl);
 
@@ -49,27 +51,37 @@ fn main() {
     //     println!("{:?}", vec[i]);
     // }
 
-    let mut asc = AsciiDraw::new(100, 100, ' ');
-    asc.line(20, 20, 20, 40, '-')
-        .line(40, 40, 20, 40, '-')
-        .circle(40, 40, 10, 'd')
-        .circle(40, 40, 8, '.')
-        .line(0, 0, 20, 20, '\\')
-        .line(40, 0, 20, 20, '/')
-        .line(0, 0, 15, 20, '.')
-        .line(10, 80, 100, 10, '=')
-        .draw_box(50, 70, 2, String::from("abcd"))
-        .draw_circle(50, 80, 3, '.', 5, String::from("3"))
-        .draw_box(60, 70, 1, String::from("4"))
-        .draw_box_center(20, 20, 1, String::from("8"))
-        // .draw_circle(20, 20, 3, '#', 5, String::from("3"))
-        .render();
+    // let mut asc = AsciiDraw::new(100, 110, ' ');
+    // asc.line(20, 20, 20, 40, '-')
+    //     .line(40, 40, 20, 40, '-')
+    //     .circle(40, 40, 10, 'd')
+    //     .circle(40, 40, 8, '.')
+    //     .line(0, 0, 20, 20, '\\')
+    //     .line(40, 0, 20, 20, '/')
+    //     .line(0, 0, 15, 20, '.')
+    //     .line(10, 80, 100, 10, '=')
+    //     .draw_box(50, 70, 2, String::from("abcd"))
+    //     .draw_circle(50, 80, 3, '.', 5, String::from("3"))
+    //     .draw_box(60, 70, 1, String::from("4"))
+    //     .draw_box_center(20, 20, 1, String::from("8"))
+    //     // .draw_circle(20, 20, 3, '#', 5, String::from("3"))
+    //     .render();
 
-    let nodes = avl.level_values(0);
-    let node = nodes[0];
-    println!("{:?}", node);
-    println!("{:?}", avl.level_values(4));
-    avl.draw_list_horizontal(&mut asc, 5, 90, 10, *avl.level_values(2));
+    // let nodes = avl.level_values(0);
+    // let node = nodes[0];
+    // println!("{:?}", node);
+    // println!("{:?}", avl.level_values(4));
+    // avl.draw_list_horizontal(&mut asc, 5, 90, 10, *avl.level_values(2));
+
+    let mut svg = SvgDraw::new(800, 500);
+
+    avl.render(&mut svg);
+
+    println!("{}", 2_usize.pow(0));
+
+    // svg.line_joint_circle(50.0,50.0,200.0,100.0,10.0);
+
+    println!("{:?}", avl.level_values(0));
 }
 
 use std::cell::RefCell;
@@ -364,26 +376,93 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
         Box::new(vec)
     }
 
-    fn render(&self) {}
+    fn render(&self, svg: &mut SvgDraw) {
+        let mut x_interval: i32 = 30;
+        let y_interval: i32 = 80;
+        let height = self.height();
+        let margin = 30;
+        let leaf_count = 2_usize.pow((height - 1) as u32);
+        svg.row = (height - 1) * y_interval as usize + margin * 2;
+        svg.col = leaf_count * x_interval as usize + margin * 2;
+
+        println!("new row and col:{},{}", svg.row, svg.col);
+
+        let x0: i32 = margin as i32;
+        let y0: i32 = svg.row as i32 - margin as i32;
+
+        let mut x_level: i32 = x0;
+        let mut y_level: i32 = y0;
+        for h in (0..height).rev() {
+            println!("{:?}", self.level_values(h));
+            let list = self.level_values(h);
+
+            for i in 0..list.len() {
+                if !list[i].is_none() {
+                    let s = list[i].unwrap().to_string();
+                    let len = s.chars().count();
+                    let idx = i as i32;
+                    println!("{},{}", x_level + idx * x_interval, y_level);
+                    svg.circle(
+                        x_level + idx * x_interval,
+                        y_level,
+                        10,
+                        String::from("black"),
+                        1,
+                    );
+                    svg.text(x_level + idx * x_interval, y_level, 6, 8, s);
+                    // svg.text();
+                    if h > 0 {
+                        if i % 2 == 0 {
+                            //left child
+                            svg.line_joint_circle(
+                                (x_level + idx * x_interval) as f64,
+                                y_level as f64,
+                                (x_level + idx * x_interval + x_interval / 2) as f64,
+                                (y_level - y_interval) as f64,
+                                10_f64,
+                                String::from("black"),
+                                1,
+                            );
+                        } else {
+                            //right child
+                            svg.line_joint_circle(
+                                (x_level + idx * x_interval) as f64,
+                                y_level as f64,
+                                (x_level + idx * x_interval - x_interval / 2) as f64,
+                                (y_level - y_interval) as f64,
+                                10_f64,
+                                String::from("black"),
+                                1,
+                            );
+                        }
+                    }
+                }
+            }
+
+            x_level = x_level + x_interval / 2;
+            y_level = y_level - y_interval;
+            x_interval = 2 * x_interval;
+        }
+
+        svg.render(String::from("tree_image.svg"));
+    }
 
     fn draw_list_horizontal(
         &self,
         pen: &mut AsciiDraw,
-        x0: usize,
-        y0: usize,
-        interval: usize,
+        x0: i32,
+        y0: i32,
+        interval: i32,
         list: Vec<Option<T>>,
     ) {
         for i in 0..list.len() {
             if !list[i].is_none() {
                 let s = list[i].unwrap().to_string();
-                let len = s.chars().count();
-                pen.draw_box(x0 + i * interval, y0, len, s);
-                println!("x,y={}{}", x0 + i * interval, y0);
+                let len = s.chars().count() as i32;
+                pen.draw_box(x0 + i as i32 * interval, y0, len, s);
+                println!("x,y={}{}", x0 + i as i32 * interval, y0);
             }
         }
-
-        pen.render();
     }
 }
 

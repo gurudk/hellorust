@@ -166,12 +166,12 @@ impl AsciiDraw {
 
     pub fn draw_box_center(
         &mut self,
-        x1: usize,
-        y1: usize,
-        text_width: usize,
+        x1: i32,
+        y1: i32,
+        text_width: i32,
         text: String,
     ) -> &mut Self {
-        let len = text.chars().count();
+        let len = text.chars().count() as i32;
         let mut rows = len / text_width;
         let r = len % text_width;
         if r > 0 {
@@ -186,8 +186,8 @@ impl AsciiDraw {
         self
     }
 
-    pub fn draw_box(&mut self, x0: usize, y0: usize, text_width: usize, text: String) -> &mut Self {
-        let len = text.chars().count();
+    pub fn draw_box(&mut self, x0: i32, y0: i32, text_width: i32, text: String) -> &mut Self {
+        let len = text.chars().count() as i32;
         let mut rows = len / text_width;
         let r = len % text_width;
         if r > 0 {
@@ -200,11 +200,11 @@ impl AsciiDraw {
         let x_end = x0 + text_width + 4;
         for i in x_begin..x_end {
             if i == x_begin {
-                self.data[y0][i] = Some(box_char_for_dirs(10));
+                self.data[y0 as usize][i as usize] = Some(box_char_for_dirs(10));
             } else if i == x_end - 1 {
-                self.data[y0][i] = Some(box_char_for_dirs(6));
+                self.data[y0 as usize][i as usize] = Some(box_char_for_dirs(6));
             } else {
-                self.data[y0][i] = Some(box_char_for_dirs(12));
+                self.data[y0 as usize][i as usize] = Some(box_char_for_dirs(12));
             }
         }
 
@@ -212,11 +212,11 @@ impl AsciiDraw {
         let y_bottom = y0 + rows + 2;
         for i in x_begin..x_end {
             if i == x_begin {
-                self.data[y_bottom - 1][i] = Some(box_char_for_dirs(9));
+                self.data[(y_bottom - 1) as usize][i as usize] = Some(box_char_for_dirs(9));
             } else if i == x_end - 1 {
-                self.data[y_bottom - 1][i] = Some(box_char_for_dirs(5));
+                self.data[(y_bottom - 1) as usize][i as usize] = Some(box_char_for_dirs(5));
             } else {
-                self.data[y_bottom - 1][i] = Some(box_char_for_dirs(12));
+                self.data[(y_bottom - 1) as usize][i as usize] = Some(box_char_for_dirs(12));
             }
         }
 
@@ -224,12 +224,12 @@ impl AsciiDraw {
         let y_begin = y0 + 1;
         let y_end = y_begin + rows;
         for i in y_begin..y_end {
-            self.data[i][x0] = Some(box_char_for_dirs(3));
+            self.data[i as usize][x0 as usize] = Some(box_char_for_dirs(3));
         }
 
         //draw right line
         for i in y_begin..y_end {
-            self.data[i][x_end - 1] = Some(box_char_for_dirs(3));
+            self.data[i as usize][(x_end - 1) as usize] = Some(box_char_for_dirs(3));
         }
 
         //draw content
@@ -238,15 +238,14 @@ impl AsciiDraw {
         // let x_content_end = x_content + width;
         // let y_content_end = y_content + rows;
         for i in 0..chars.len() {
-            let col_idx = i / text_width;
-            let row_idx = i % text_width;
-            self.data[y_content + col_idx][x_content + row_idx] = Some(chars[i].clone());
+            let col_idx = i as i32 / text_width;
+            let row_idx = i as i32 % text_width;
+            self.data[(y_content + col_idx) as usize][(x_content + row_idx) as usize] =
+                Some(chars[i].clone());
         }
 
         self
     }
-
-
 
     pub fn to_row_str(&self, row_no: usize) -> Box<String> {
         let mut str: String = String::from("");
