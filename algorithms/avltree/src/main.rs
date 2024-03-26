@@ -13,40 +13,42 @@ fn main() {
 
     let mut rng = rand::thread_rng();
     let uni = Uniform::from(1..100);
-    for i in 0..13 {
+    for i in 0..30 {
         avl.insert(uni.sample(&mut rng));
     }
 
-    println!("tree:{:?}", &avl);
+    avl.calculate_level_position();
 
-    avl.levelorder();
+    // println!("tree:{:?}", &avl);
+
+    // avl.levelorder();
 
     // if let Some(rcnode) = &avl.root {
     //     let root = rcnode.borrow();
     //     println!("left key:{:?}", &root.left_key());
     // }
 
-    println!("size:{}", avl.size());
-    println!("height:{}", avl.height());
+    // println!("size:{}", avl.size());
+    // println!("height:{}", avl.height());
 
-    let n20 = avl.get(20);
-    println!("n20:{:?}", n20);
+    // let n20 = avl.get(20);
+    // println!("n20:{:?}", n20);
 
-    let n6 = avl.get(3);
-    println!("n6:{:?}", n6);
+    // let n6 = avl.get(3);
+    // println!("n6:{:?}", n6);
 
-    avl.calculate_level_position();
-    println!("==================================================");
+    // avl.calculate_level_position();
+    // println!("==================================================");
 
-    println!("avl:{:?}", avl);
-    let mut b = 1;
-    b <<= 1;
-    b += 1;
-    println!("{}", b);
-    let mut v: Vec<Option<usize>> = vec![None; 10];
-    v[0] = Some(1);
-    v[9] = Some(12);
-    println!("{:?}", v);
+    // println!("avl:{:?}", avl);
+    // let mut b = 1;
+    // b <<= 1;
+    // b += 1;
+    // println!("{}", b);
+    // let mut v: Vec<Option<usize>> = vec![None; 10];
+    // v[0] = Some(1);
+    // v[9] = Some(12);
+    // println!("{:?}", v);
     // for i in 0..vec.len(){
     //     println!("{:?}", vec[i]);
     // }
@@ -73,19 +75,37 @@ fn main() {
     // println!("{:?}", avl.level_values(4));
     // avl.draw_list_horizontal(&mut asc, 5, 90, 10, *avl.level_values(2));
 
+    println!("size:{}", avl.size());
+
     let mut svg = SvgDraw::new(800, 500);
 
-    avl.render(&mut svg);
+    // avl.render(&mut svg);
+    avl.draw(&mut svg);
+    // println!("{:?}", avl);
 
-    println!("{}", 2_usize.pow(0));
+    match &avl.root {
+        Some(root) => {
+            println!("leftmost pos_x:{}", avl.leftmost_pos(&Rc::clone(&root)));
+            println!("rightmost pos_x:{}", avl.rightmost_pos(&Rc::clone(&root)));
+            println!("rightmost pos_x:{}", avl.upmost_pos(&Rc::clone(&root)));
+            println!("rightmost pos_x:{}", avl.downmost_pos(&Rc::clone(&root)));
+        }
+        None => (),
+    }
+
+    avl.to_svg(String::from("test_tree.svg"), &mut svg);
+
+    // println!("{}", 2_usize.pow(0));
 
     // svg.line_joint_circle(50.0,50.0,200.0,100.0,10.0);
 
-    println!("{:?}", avl.level_values(0));
+    // println!("{:?}", avl.level_values(0));
+    // avl.draw(&mut svg);
 }
 
 use std::cell::RefCell;
 use std::cmp::max;
+use std::cmp::min;
 use std::collections::VecDeque;
 use std::fmt::Debug;
 use std::rc::{Rc, Weak};
@@ -107,6 +127,8 @@ struct AvlNode<T> {
     factor: i32,
     level: usize,
     level_position: usize,
+    pos_x: i32,
+    pos_y: i32,
 }
 
 type Node<T> = Rc<RefCell<AvlNode<T>>>;
@@ -376,9 +398,217 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
         Box::new(vec)
     }
 
-    fn render(&self, svg: &mut SvgDraw) {
+    fn draw(&self, svg: &mut SvgDraw) {
         let mut x_interval: i32 = 30;
         let y_interval: i32 = 80;
+        let height = self.height();
+        let margin = 30;
+        let leaf_count = 2_usize.pow((height - 1) as u32);
+        svg.row = (height - 1) * y_interval as usize + margin * 2;
+        svg.col = leaf_count * x_interval as usize + margin * 2;
+
+        self.init_position(svg.row as i32 / 2, margin as i32, x_interval, y_interval);
+
+        if let Some(root) = &self.root {
+            svg.col = margin + self.rightmost_pos(&Rc::clone(&root)) as usize;
+            svg.row = margin + self.downmost_pos(&Rc::clone(&root)) as usize;
+            self.shift_horizonal(&Rc::clone(&root), -100);
+
+            let rnode = root.borrow();
+            let leftchild_rightmost = if let Some(lnode) = &rnode.left {
+                self.rightmost_pos(lnode)
+            } else {
+                0
+            };
+
+            let rightchild_leftmost = if let Some(rightnode) = &rnode.right {
+                self.leftmost_pos(rightnode)
+            } else {
+                0
+            };
+
+            let diff: i32 = rightchild_leftmost - leftchild_rightmost;
+            println!("difffffffffffffffffff:{}", diff);
+
+            if diff <= 0 {
+                if let Some(lnode) = &rnode.left {
+                    self.shift_horizonal(lnode, -(diff.abs() + margin as i32) / 2);
+                }
+
+                if let Some(rightnode) = &rnode.right {
+                    self.shift_horizonal(rightnode, (diff.abs() + margin as i32) / 2);
+                }
+            }
+
+            println!(
+                "left child'rightmost:{}, right child' leftmost:{}",
+                leftchild_rightmost, rightchild_leftmost
+            );
+        }
+
+        println!("new row and col:{},{}", svg.row, svg.col);
+    }
+
+    fn init_position(&self, x0: i32, y0: i32, x_interval: i32, y_interval: i32) {
+        match &self.root {
+            Some(root) => {
+                root.borrow_mut().pos_x = x0;
+                root.borrow_mut().pos_y = y0;
+                self._init_pos(root, x0, y0, x_interval, y_interval);
+            }
+            None => (),
+        }
+    }
+
+    fn _init_pos(&self, node: &Node<T>, x0: i32, y0: i32, x_interval: i32, y_interval: i32) {
+        let avlnode = node.borrow();
+
+        match &avlnode.left {
+            Some(l) => {
+                l.borrow_mut().pos_x = avlnode.pos_x - x_interval / 2;
+                l.borrow_mut().pos_y = avlnode.pos_y + y_interval;
+                self._init_pos(l, x0, y0, x_interval, y_interval);
+            }
+            None => (),
+        }
+
+        match &avlnode.right {
+            Some(r) => {
+                r.borrow_mut().pos_x = avlnode.pos_x + x_interval / 2;
+                r.borrow_mut().pos_y = avlnode.pos_y + y_interval;
+                self._init_pos(r, x0, y0, x_interval, y_interval);
+            }
+            None => (),
+        }
+    }
+
+    fn to_svg(&self, file_name: String, svg: &mut SvgDraw) {
+        let mut queue = VecDeque::new();
+        if let Some(root) = &self.root {
+            queue.push_front(Rc::clone(&root));
+        }
+
+        while !queue.is_empty() {
+            if let Some(node) = &queue.pop_back() {
+                let avlnode = node.borrow();
+                println!(
+                    "key={:?}, pos_x={:?}, pos_y={:?}",
+                    avlnode.key, avlnode.pos_x, avlnode.pos_y
+                );
+                //draw node
+                let s = avlnode.key.unwrap().to_string();
+                svg.circle(avlnode.pos_x, avlnode.pos_y, 10, String::from("black"), 1);
+                svg.text(avlnode.pos_x, avlnode.pos_y, 6, 8, s);
+
+                if let Some(lnode) = &avlnode.left {
+                    //draw left line
+                    svg.line_joint_circle(
+                        avlnode.pos_x as f64,
+                        avlnode.pos_y as f64,
+                        lnode.borrow().pos_x as f64,
+                        lnode.borrow().pos_y as f64,
+                        10_f64,
+                        String::from("black"),
+                        1,
+                    );
+                    queue.push_front(Rc::clone(&lnode));
+                }
+
+                if let Some(rnode) = &avlnode.right {
+                    //draw right line
+                    svg.line_joint_circle(
+                        avlnode.pos_x as f64,
+                        avlnode.pos_y as f64,
+                        rnode.borrow().pos_x as f64,
+                        rnode.borrow().pos_y as f64,
+                        10_f64,
+                        String::from("black"),
+                        1,
+                    );
+                    queue.push_front(Rc::clone(&rnode));
+                }
+            }
+        }
+
+        svg.render(file_name);
+    }
+
+    fn shift_horizonal(&self, node: &Node<T>, distance: i32) {
+        let mut avlnode = node.borrow_mut();
+        avlnode.pos_x += distance;
+        if let Some(lnode) = &avlnode.left {
+            self.shift_horizonal(lnode, distance);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            self.shift_horizonal(rnode, distance);
+        }
+    }
+
+    fn leftmost_pos(&self, node: &Node<T>) -> i32 {
+        let avlnode = node.borrow();
+        let mut left_child_pos_x = avlnode.pos_x;
+        let mut right_child_pos_x = avlnode.pos_x;
+        if let Some(lnode) = &avlnode.left {
+            left_child_pos_x = self.leftmost_pos(lnode);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            right_child_pos_x = self.leftmost_pos(rnode);
+        }
+
+        min(left_child_pos_x, right_child_pos_x)
+    }
+
+    fn rightmost_pos(&self, node: &Node<T>) -> i32 {
+        let avlnode = node.borrow();
+        let mut left_child_pos_x = avlnode.pos_x;
+        let mut right_child_pos_x = avlnode.pos_x;
+        if let Some(lnode) = &avlnode.left {
+            left_child_pos_x = self.rightmost_pos(lnode);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            right_child_pos_x = self.rightmost_pos(rnode);
+        }
+
+        max(left_child_pos_x, right_child_pos_x)
+    }
+
+    fn downmost_pos(&self, node: &Node<T>) -> i32 {
+        let avlnode = node.borrow();
+        let mut left_child_pos = avlnode.pos_y;
+        let mut right_child_pos = avlnode.pos_y;
+        if let Some(lnode) = &avlnode.left {
+            left_child_pos = self.downmost_pos(lnode);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            right_child_pos = self.downmost_pos(rnode);
+        }
+
+        max(left_child_pos, right_child_pos)
+    }
+
+    fn upmost_pos(&self, node: &Node<T>) -> i32 {
+        //may be simpler
+        let avlnode = node.borrow();
+        let mut left_child_pos = avlnode.pos_y;
+        let mut right_child_pos = avlnode.pos_y;
+        if let Some(lnode) = &avlnode.left {
+            left_child_pos = self.upmost_pos(lnode);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            right_child_pos = self.upmost_pos(rnode);
+        }
+
+        min(left_child_pos, right_child_pos)
+    }
+
+    fn render(&self, svg: &mut SvgDraw) {
+        let mut x_interval: i32 = 30;
+        let y_interval: i32 = 120;
         let height = self.height();
         let margin = 30;
         let leaf_count = 2_usize.pow((height - 1) as u32);
@@ -476,6 +706,8 @@ impl<T: Ord + Copy> AvlNode<T> {
             factor: 0,
             level: 0,
             level_position: 0,
+            pos_x: 0,
+            pos_y: 0,
         }
     }
 
@@ -488,6 +720,8 @@ impl<T: Ord + Copy> AvlNode<T> {
             factor: 0,
             level: 0,
             level_position: 0,
+            pos_x: 0,
+            pos_y: 0,
         }))
     }
 
@@ -500,6 +734,8 @@ impl<T: Ord + Copy> AvlNode<T> {
             factor: 0,
             level: 0,
             level_position: 0,
+            pos_x: 0,
+            pos_y: 0,
         }))
     }
 
@@ -512,6 +748,8 @@ impl<T: Ord + Copy> AvlNode<T> {
             factor: 0,
             level: 0,
             level_position: 0,
+            pos_x: 0,
+            pos_y: 0,
         }
     }
 
