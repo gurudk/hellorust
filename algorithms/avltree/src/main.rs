@@ -13,7 +13,7 @@ fn main() {
 
     let mut rng = rand::thread_rng();
     let uni = Uniform::from(1..100);
-    for i in 0..30 {
+    for i in 0..100 {
         avl.insert(uni.sample(&mut rng));
     }
 
@@ -400,9 +400,9 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
 
     fn draw(&self, svg: &mut SvgDraw) {
         let mut x_interval: i32 = 30;
-        let y_interval: i32 = 80;
+        let y_interval: i32 = 120;
         let height = self.height();
-        let margin = 30;
+        let margin = 20;
         let leaf_count = 2_usize.pow((height - 1) as u32);
         svg.row = (height - 1) * y_interval as usize + margin * 2;
         svg.col = leaf_count * x_interval as usize + margin * 2;
@@ -414,39 +414,110 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
             svg.row = margin + self.downmost_pos(&Rc::clone(&root)) as usize;
             self.shift_horizonal(&Rc::clone(&root), -100);
 
-            let rnode = root.borrow();
-            let leftchild_rightmost = if let Some(lnode) = &rnode.left {
-                self.rightmost_pos(lnode)
-            } else {
-                0
-            };
+            let mut i = 0;
+            while self.is_overlaped(root) {
+                self.keep_away_childs(root, margin as i32);
+                i += 1;
+            }
 
-            let rightchild_leftmost = if let Some(rightnode) = &rnode.right {
-                self.leftmost_pos(rightnode)
-            } else {
-                0
-            };
+            let adjust_x = self.leftmost_pos(root);
 
-            let diff: i32 = rightchild_leftmost - leftchild_rightmost;
-            println!("difffffffffffffffffff:{}", diff);
-
-            if diff <= 0 {
-                if let Some(lnode) = &rnode.left {
-                    self.shift_horizonal(lnode, -(diff.abs() + margin as i32) / 2);
-                }
-
-                if let Some(rightnode) = &rnode.right {
-                    self.shift_horizonal(rightnode, (diff.abs() + margin as i32) / 2);
-                }
+            if adjust_x < 0 {
+                println!("Neeeeeeeeeeeeeeeeeeeeeeeeed to adjust");
+                self.shift_horizonal(root, -adjust_x + margin as i32);
             }
 
             println!(
-                "left child'rightmost:{}, right child' leftmost:{}",
-                leftchild_rightmost, rightchild_leftmost
+                "Adjust this tree {} times, overlapped:{}",
+                i,
+                self.is_overlaped(&Rc::clone(&root))
             );
         }
 
+        if let Some(root) = &self.root {
+            svg.col = margin + self.rightmost_pos(&Rc::clone(&root)) as usize;
+            svg.row = margin + self.downmost_pos(&Rc::clone(&root)) as usize;
+        }
+
         println!("new row and col:{},{}", svg.row, svg.col);
+    }
+
+    fn is_overlaped(&self, node: &Node<T>) -> bool {
+        let avlnode = node.borrow();
+
+        if avlnode.left.is_none() && avlnode.right.is_none() {
+            //leaf node cannot be overlapped
+            return false;
+        }
+
+        let mut leftchild_rightmost = avlnode.pos_x;
+        let mut rightchild_leftmost = avlnode.pos_x;
+
+        if let Some(lnode) = &avlnode.left {
+            leftchild_rightmost = self.rightmost_pos(lnode);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            rightchild_leftmost = self.leftmost_pos(rnode);
+        }
+
+        let diff = rightchild_leftmost - leftchild_rightmost;
+
+        if diff <= 20 {
+            println!("key={:?},diff={}", avlnode.key, diff);
+            return true;
+        }
+
+        let mut is_left_overlaped = false;
+        let mut is_right_overlaped = false;
+
+        if let Some(lnode) = &avlnode.left {
+            is_left_overlaped = self.is_overlaped(lnode);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            is_right_overlaped = self.is_overlaped(rnode);
+        }
+
+        return is_left_overlaped || is_right_overlaped;
+    }
+
+    fn keep_away_childs(&self, node: &Node<T>, margin: i32) {
+        let avlnode = node.borrow();
+
+        let mut leftchild_rightmost = avlnode.pos_x;
+        let mut rightchild_leftmost = avlnode.pos_x;
+
+        if let Some(lnode) = &avlnode.left {
+            leftchild_rightmost = self.rightmost_pos(lnode);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            rightchild_leftmost = self.leftmost_pos(rnode);
+        }
+
+        let diff = rightchild_leftmost - leftchild_rightmost;
+
+        if diff <= 20 {
+            if let Some(lnode) = &avlnode.left {
+                self.shift_horizonal(lnode, -(diff.abs() + margin) / 2);
+            }
+
+            if let Some(rightnode) = &avlnode.right {
+                self.shift_horizonal(rightnode, (diff.abs() + margin) / 2);
+            }
+
+            //adjust all parents node
+            // self.keep_away_ancester_childs(node, margin);
+        }
+
+        if let Some(lnode) = &avlnode.left {
+            self.keep_away_childs(lnode, margin);
+        }
+
+        if let Some(rnode) = &avlnode.right {
+            self.keep_away_childs(rnode, margin);
+        }
     }
 
     fn init_position(&self, x0: i32, y0: i32, x_interval: i32, y_interval: i32) {
