@@ -12,7 +12,7 @@ fn main() {
     let mut avl = AvlTree::new(50);
 
     let mut rng = rand::thread_rng();
-    let uni = Uniform::from(1..100);
+    let uni = Uniform::from(1..200);
     for i in 0..100 {
         avl.insert(uni.sample(&mut rng));
     }
@@ -101,6 +101,20 @@ fn main() {
 
     // println!("{:?}", avl.level_values(0));
     // avl.draw(&mut svg);
+
+    if let Some(root) = &avl.root {
+        let md = avl.min_distance(&root);
+        println!("min_distance:{:?}", md);
+
+        println!("==================================================");
+
+        // let ow = avl.min_distance(&root);
+        println!(
+            "overwided:{}, min_distance:{:?}",
+            avl.is_overwided(&root),
+            avl.min_distance(&root)
+        );
+    }
 }
 
 use std::cell::RefCell;
@@ -400,7 +414,7 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
 
     fn draw(&self, svg: &mut SvgDraw) {
         let mut x_interval: i32 = 30;
-        let y_interval: i32 = 120;
+        let y_interval: i32 = 80;
         let height = self.height();
         let margin = 20;
         let leaf_count = 2_usize.pow((height - 1) as u32);
@@ -415,22 +429,33 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
             self.shift_horizonal(&Rc::clone(&root), -100);
 
             let mut i = 0;
-            while self.is_overlaped(root) {
+            while self.is_completed(root) {
                 self.keep_away_childs(root, margin as i32);
                 i += 1;
             }
 
             let adjust_x = self.leftmost_pos(root);
+            self.shift_horizonal(root, -adjust_x + margin as i32);
 
-            if adjust_x < 0 {
-                println!("Neeeeeeeeeeeeeeeeeeeeeeeeed to adjust");
-                self.shift_horizonal(root, -adjust_x + margin as i32);
-            }
+            let mut wi = 0;
+            // while self.is_overwided(root) {
+            //narrow childs
+            // self.keep_close_childs(root, margin as i32);
+            // wi += 1;
+            // }
+
+            // if adjust_x < 0 {
+            //     println!("Neeeeeeeeeeeeeeeeeeeeeeeeed to adjust");
+            //     self.shift_horizonal(root, -adjust_x + margin as i32);
+            // } else {
+            //     self.shift_horizonal(root, -adjust_x + margin as i32);
+            // }
 
             println!(
-                "Adjust this tree {} times, overlapped:{}",
+                "Adjust this tree {} times, keep closed {} times, overlapped:{}",
                 i,
-                self.is_overlaped(&Rc::clone(&root))
+                wi,
+                self.is_completed(&Rc::clone(&root))
             );
         }
 
@@ -439,10 +464,10 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
             svg.row = margin + self.downmost_pos(&Rc::clone(&root)) as usize;
         }
 
-        println!("new row and col:{},{}", svg.row, svg.col);
+        // println!("new row and col:{},{}", svg.row, svg.col);
     }
 
-    fn is_overlaped(&self, node: &Node<T>) -> bool {
+    fn is_overwided(&self, node: &Node<T>) -> bool {
         let avlnode = node.borrow();
 
         if avlnode.left.is_none() && avlnode.right.is_none() {
@@ -450,33 +475,77 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
             return false;
         }
 
-        let mut leftchild_rightmost = avlnode.pos_x;
-        let mut rightchild_leftmost = avlnode.pos_x;
+        // let mut leftchild_rightmost = avlnode.pos_x;
+        // let mut rightchild_leftmost = avlnode.pos_x;
+
+        // if let Some(lnode) = &avlnode.left {
+        //     leftchild_rightmost = self.rightmost_pos(lnode);
+        // }
+
+        // if let Some(rnode) = &avlnode.right {
+        //     rightchild_leftmost = self.leftmost_pos(rnode);
+        // }
+
+        // let diff = rightchild_leftmost - leftchild_rightmost;
+
+        if let Some(diff) = self.min_distance(node) {
+            if diff > 30 {
+                println!("overwided key={:?},diff={}", avlnode.key, diff);
+                return true;
+            }
+        }
+
+        let mut is_left_overwided = false;
+        let mut is_right_overwided = false;
 
         if let Some(lnode) = &avlnode.left {
-            leftchild_rightmost = self.rightmost_pos(lnode);
+            is_left_overwided = self.is_overwided(lnode);
         }
 
         if let Some(rnode) = &avlnode.right {
-            rightchild_leftmost = self.leftmost_pos(rnode);
+            is_right_overwided = self.is_overwided(rnode);
         }
 
-        let diff = rightchild_leftmost - leftchild_rightmost;
+        return is_left_overwided || is_right_overwided;
+    }
 
-        if diff <= 20 {
-            println!("key={:?},diff={}", avlnode.key, diff);
-            return true;
+    fn is_completed(&self, node: &Node<T>) -> bool {
+        let avlnode = node.borrow();
+
+        if avlnode.left.is_none() && avlnode.right.is_none() {
+            //leaf node cannot be overlapped
+            return false;
+        }
+
+        // let mut leftchild_rightmost = avlnode.pos_x;
+        // let mut rightchild_leftmost = avlnode.pos_x;
+
+        // if let Some(lnode) = &avlnode.left {
+        //     leftchild_rightmost = self.rightmost_pos(lnode);
+        // }
+
+        // if let Some(rnode) = &avlnode.right {
+        //     rightchild_leftmost = self.leftmost_pos(rnode);
+        // }
+
+        // let diff = rightchild_leftmost - leftchild_rightmost;
+
+        if let Some(diff) = self.min_distance(node) {
+            if diff <= 20 {
+                // println!("key={:?},diff={}", avlnode.key, diff);
+                return true;
+            }
         }
 
         let mut is_left_overlaped = false;
         let mut is_right_overlaped = false;
 
         if let Some(lnode) = &avlnode.left {
-            is_left_overlaped = self.is_overlaped(lnode);
+            is_left_overlaped = self.is_completed(lnode);
         }
 
         if let Some(rnode) = &avlnode.right {
-            is_right_overlaped = self.is_overlaped(rnode);
+            is_right_overlaped = self.is_completed(rnode);
         }
 
         return is_left_overlaped || is_right_overlaped;
@@ -485,30 +554,93 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
     fn keep_away_childs(&self, node: &Node<T>, margin: i32) {
         let avlnode = node.borrow();
 
-        let mut leftchild_rightmost = avlnode.pos_x;
-        let mut rightchild_leftmost = avlnode.pos_x;
+        // let mut leftchild_rightmost = avlnode.pos_x;
+        // let mut rightchild_leftmost = avlnode.pos_x;
+
+        // if let Some(lnode) = &avlnode.left {
+        //     leftchild_rightmost = self.rightmost_pos(lnode);
+        // }
+
+        // if let Some(rnode) = &avlnode.right {
+        //     rightchild_leftmost = self.leftmost_pos(rnode);
+        // }
+
+        // let diff = rightchild_leftmost - leftchild_rightmost;
+
+        if let Some(diff) = self.min_distance(node) {
+            if diff <= 20 {
+                if let Some(lnode) = &avlnode.left {
+                    self.shift_horizonal(lnode, -(diff.abs() + margin) / 2);
+                }
+
+                if let Some(rightnode) = &avlnode.right {
+                    self.shift_horizonal(rightnode, (diff.abs() + margin) / 2);
+                }
+
+                //adjust all parents node
+                // self.keep_away_ancester_childs(node, margin);
+            }
+
+            // if diff > 30 {
+            //     if let Some(lnode) = &avlnode.left {
+            //         self.shift_horizonal(lnode, (diff - 30) / 2);
+            //     }
+
+            //     if let Some(rightnode) = &avlnode.right {
+            //         self.shift_horizonal(rightnode, -(diff - 30) / 2);
+            //     }
+            // }
+        }
 
         if let Some(lnode) = &avlnode.left {
-            leftchild_rightmost = self.rightmost_pos(lnode);
+            self.keep_away_childs(lnode, margin);
         }
 
         if let Some(rnode) = &avlnode.right {
-            rightchild_leftmost = self.leftmost_pos(rnode);
+            self.keep_away_childs(rnode, margin);
         }
+    }
 
-        let diff = rightchild_leftmost - leftchild_rightmost;
+    fn keep_close_childs(&self, node: &Node<T>, margin: i32) {
+        let avlnode = node.borrow();
 
-        if diff <= 20 {
-            if let Some(lnode) = &avlnode.left {
-                self.shift_horizonal(lnode, -(diff.abs() + margin) / 2);
+        // let mut leftchild_rightmost = avlnode.pos_x;
+        // let mut rightchild_leftmost = avlnode.pos_x;
+
+        // if let Some(lnode) = &avlnode.left {
+        //     leftchild_rightmost = self.rightmost_pos(lnode);
+        // }
+
+        // if let Some(rnode) = &avlnode.right {
+        //     rightchild_leftmost = self.leftmost_pos(rnode);
+        // }
+
+        // let diff = rightchild_leftmost - leftchild_rightmost;
+
+        if let Some(diff) = self.min_distance(node) {
+            // if diff <= 20 {
+            //     if let Some(lnode) = &avlnode.left {
+            //         self.shift_horizonal(lnode, -(diff.abs() + margin) / 2);
+            //     }
+
+            //     if let Some(rightnode) = &avlnode.right {
+            //         self.shift_horizonal(rightnode, (diff.abs() + margin) / 2);
+            //     }
+
+            //     //adjust all parents node
+            //     // self.keep_away_ancester_childs(node, margin);
+            // }
+
+            if diff > 30 {
+                println!("just keep cloooooooooooooooooose node:{:?}", avlnode.key);
+                if let Some(lnode) = &avlnode.left {
+                    self.shift_horizonal(lnode, (diff - 30) / 2);
+                }
+
+                if let Some(rightnode) = &avlnode.right {
+                    self.shift_horizonal(rightnode, -(diff - 30) / 2);
+                }
             }
-
-            if let Some(rightnode) = &avlnode.right {
-                self.shift_horizonal(rightnode, (diff.abs() + margin) / 2);
-            }
-
-            //adjust all parents node
-            // self.keep_away_ancester_childs(node, margin);
         }
 
         if let Some(lnode) = &avlnode.left {
@@ -562,10 +694,10 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
         while !queue.is_empty() {
             if let Some(node) = &queue.pop_back() {
                 let avlnode = node.borrow();
-                println!(
-                    "key={:?}, pos_x={:?}, pos_y={:?}",
-                    avlnode.key, avlnode.pos_x, avlnode.pos_y
-                );
+                // println!(
+                //     "key={:?}, pos_x={:?}, pos_y={:?}",
+                //     avlnode.key, avlnode.pos_x, avlnode.pos_y
+                // );
                 //draw node
                 let s = avlnode.key.unwrap().to_string();
                 svg.circle(avlnode.pos_x, avlnode.pos_y, 10, String::from("black"), 1);
@@ -677,6 +809,91 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
         min(left_child_pos, right_child_pos)
     }
 
+    fn min_distance(&self, node: &Node<T>) -> Option<i32> {
+        let avlnode = node.borrow();
+
+        if avlnode.left.is_none() || avlnode.right.is_none() {
+            return None;
+        } else {
+            let mut left_queue = VecDeque::new();
+            let mut right_queue = VecDeque::new();
+            let mut min_dist = i32::MAX;
+
+            if let Some(lnode) = &avlnode.left {
+                left_queue.push_front(Rc::clone(&lnode));
+            };
+
+            if let Some(rnode) = &avlnode.right {
+                right_queue.push_front(Rc::clone(&rnode));
+            };
+
+            let mut left_key = None;
+            let mut right_key = None;
+            while !left_queue.is_empty() && !right_queue.is_empty() {
+                let mut left_rightmost_pos = i32::MIN;
+                let mut right_leftmost_pos = i32::MAX;
+                for i in 0..left_queue.len() {
+                    if left_queue[i].borrow().pos_x > left_rightmost_pos {
+                        left_rightmost_pos = left_queue[i].borrow().pos_x;
+                        left_key = left_queue[i].borrow().key;
+                    }
+                }
+
+                for j in 0..right_queue.len() {
+                    if right_queue[j].borrow().pos_x < right_leftmost_pos {
+                        right_leftmost_pos = right_queue[j].borrow().pos_x;
+                        right_key = right_queue[j].borrow().key;
+                    }
+                }
+
+                let temp_dist = right_leftmost_pos - left_rightmost_pos;
+                if temp_dist < min_dist {
+                    min_dist = temp_dist;
+
+                    println!(
+                        "leftkey={:?},rightkey={:?},min_dist={}",
+                        left_key, right_key, min_dist
+                    );
+                }
+
+                //put next level childs
+                let mut left_queue_count = left_queue.len();
+                let mut right_queue_count = right_queue.len();
+
+                // 全部出栈，子节点全部入栈
+                while left_queue_count > 0 {
+                    if let Some(ln) = &left_queue.pop_back() {
+                        if let Some(lnode) = &ln.borrow().left {
+                            left_queue.push_front(Rc::clone(&lnode));
+                        }
+
+                        if let Some(rnode) = &ln.borrow().right {
+                            left_queue.push_front(Rc::clone(&rnode));
+                        }
+                    }
+
+                    left_queue_count -= 1;
+                }
+
+                while right_queue_count > 0 {
+                    if let Some(rn) = &right_queue.pop_back() {
+                        if let Some(lnode) = &rn.borrow().left {
+                            right_queue.push_front(Rc::clone(&lnode));
+                        }
+
+                        if let Some(rnode) = &rn.borrow().right {
+                            right_queue.push_front(Rc::clone(&rnode));
+                        }
+                    }
+
+                    right_queue_count -= 1;
+                }
+            }
+
+            Some(min_dist)
+        }
+    }
+
     fn render(&self, svg: &mut SvgDraw) {
         let mut x_interval: i32 = 30;
         let y_interval: i32 = 120;
@@ -686,7 +903,7 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
         svg.row = (height - 1) * y_interval as usize + margin * 2;
         svg.col = leaf_count * x_interval as usize + margin * 2;
 
-        println!("new row and col:{},{}", svg.row, svg.col);
+        // println!("new row and col:{},{}", svg.row, svg.col);
 
         let x0: i32 = margin as i32;
         let y0: i32 = svg.row as i32 - margin as i32;
@@ -694,7 +911,7 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
         let mut x_level: i32 = x0;
         let mut y_level: i32 = y0;
         for h in (0..height).rev() {
-            println!("{:?}", self.level_values(h));
+            // println!("{:?}", self.level_values(h));
             let list = self.level_values(h);
 
             for i in 0..list.len() {
@@ -702,7 +919,7 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
                     let s = list[i].unwrap().to_string();
                     let len = s.chars().count();
                     let idx = i as i32;
-                    println!("{},{}", x_level + idx * x_interval, y_level);
+                    // println!("{},{}", x_level + idx * x_interval, y_level);
                     svg.circle(
                         x_level + idx * x_interval,
                         y_level,
@@ -761,7 +978,7 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
                 let s = list[i].unwrap().to_string();
                 let len = s.chars().count() as i32;
                 pen.draw_box(x0 + i as i32 * interval, y0, len, s);
-                println!("x,y={}{}", x0 + i as i32 * interval, y0);
+                // println!("x,y={}{}", x0 + i as i32 * interval, y0);
             }
         }
     }

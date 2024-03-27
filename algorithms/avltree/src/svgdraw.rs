@@ -108,13 +108,13 @@ impl SvgDraw {
             }
         }
 
-        println!(
-            "P1:{},{},P2:{},{}",
-            x_r1,
-            ly(x_r1 as f64) as i32,
-            x_r2,
-            ly(x_r2 as f64) as i32,
-        );
+        // println!(
+        //     "P1:{},{},P2:{},{}",
+        //     x_r1,
+        //     ly(x_r1 as f64) as i32,
+        //     x_r2,
+        //     ly(x_r2 as f64) as i32,
+        // );
 
         self.line(
             x_r1,
