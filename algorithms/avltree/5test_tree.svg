@@ -1,0 +1,357 @@
+
+            <svg width="573" height="760" version="1.1" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="white"/>
+            
+            <circle cx="188" cy="20" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="182" y="24">50</text>
+            
+            <line x1="180" y1="26"  x2="102"  y2="93" stroke="black" stroke-width="1
+            "/>
+            <line x1="196" y1="26"  x2="274"  y2="93" stroke="black" stroke-width="1
+            "/>
+            <circle cx="94" cy="100" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="91" y="104">1</text>
+            
+            <line x1="96" y1="110"  x2="107"  y2="169" stroke="black" stroke-width="1
+            "/>
+            <circle cx="282" cy="100" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="276" y="104">63</text>
+            
+            <line x1="274" y1="106"  x2="189"  y2="173" stroke="black" stroke-width="1
+            "/>
+            <line x1="290" y1="106"  x2="375"  y2="173" stroke="black" stroke-width="1
+            "/>
+            <circle cx="109" cy="180" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="103" y="184">45</text>
+            
+            <line x1="107" y1="190"  x2="96"  y2="249" stroke="black" stroke-width="1
+            "/>
+            <line x1="111" y1="190"  x2="122"  y2="249" stroke="black" stroke-width="1
+            "/>
+            <circle cx="181" cy="180" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="175" y="184">55</text>
+            
+            <line x1="179" y1="190"  x2="168"  y2="249" stroke="black" stroke-width="1
+            "/>
+            <line x1="183" y1="190"  x2="194"  y2="249" stroke="black" stroke-width="1
+            "/>
+            <circle cx="383" cy="180" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="374" y="184">107</text>
+            
+            <line x1="375" y1="185"  x2="283"  y2="254" stroke="black" stroke-width="1
+            "/>
+            <line x1="391" y1="185"  x2="483"  y2="254" stroke="black" stroke-width="1
+            "/>
+            <circle cx="94" cy="260" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="88" y="264">17</text>
+            
+            <line x1="91" y1="268"  x2="68"  y2="331" stroke="black" stroke-width="1
+            "/>
+            <line x1="97" y1="268"  x2="120"  y2="331" stroke="black" stroke-width="1
+            "/>
+            <circle cx="124" cy="260" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="118" y="264">46</text>
+            
+            <circle cx="166" cy="260" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="160" y="264">54</text>
+            
+            <line x1="164" y1="270"  x2="153"  y2="329" stroke="black" stroke-width="1
+            "/>
+            <circle cx="196" cy="260" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="190" y="264">61</text>
+            
+            <line x1="194" y1="270"  x2="183"  y2="329" stroke="black" stroke-width="1
+            "/>
+            <line x1="198" y1="270"  x2="209"  y2="329" stroke="black" stroke-width="1
+            "/>
+            <circle cx="275" cy="260" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="269" y="264">98</text>
+            
+            <line x1="271" y1="268"  x2="243"  y2="331" stroke="black" stroke-width="1
+            "/>
+            <line x1="279" y1="268"  x2="307"  y2="331" stroke="black" stroke-width="1
+            "/>
+            <circle cx="491" cy="260" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="482" y="264">191</text>
+            
+            <line x1="486" y1="268"  x2="449"  y2="331" stroke="black" stroke-width="1
+            "/>
+            <line x1="496" y1="268"  x2="533"  y2="331" stroke="black" stroke-width="1
+            "/>
+            <circle cx="65" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="59" y="344">12</text>
+            
+            <line x1="63" y1="350"  x2="52"  y2="409" stroke="black" stroke-width="1
+            "/>
+            <line x1="67" y1="350"  x2="78"  y2="409" stroke="black" stroke-width="1
+            "/>
+            <circle cx="123" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="117" y="344">35</text>
+            
+            <line x1="121" y1="350"  x2="110"  y2="409" stroke="black" stroke-width="1
+            "/>
+            <line x1="125" y1="350"  x2="136"  y2="409" stroke="black" stroke-width="1
+            "/>
+            <circle cx="151" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="145" y="344">52</text>
+            
+            <circle cx="181" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="175" y="344">57</text>
+            
+            <circle cx="211" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="205" y="344">62</text>
+            
+            <circle cx="239" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="233" y="344">86</text>
+            
+            <line x1="236" y1="348"  x2="213"  y2="411" stroke="black" stroke-width="1
+            "/>
+            <line x1="242" y1="348"  x2="265"  y2="411" stroke="black" stroke-width="1
+            "/>
+            <circle cx="311" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="302" y="344">106</text>
+            
+            <line x1="309" y1="350"  x2="298"  y2="409" stroke="black" stroke-width="1
+            "/>
+            <circle cx="444" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="435" y="344">154</text>
+            
+            <line x1="439" y1="347"  x2="398"  y2="412" stroke="black" stroke-width="1
+            "/>
+            <line x1="449" y1="347"  x2="490"  y2="412" stroke="black" stroke-width="1
+            "/>
+            <circle cx="538" cy="340" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="529" y="344">194</text>
+            
+            <line x1="536" y1="350"  x2="525"  y2="409" stroke="black" stroke-width="1
+            "/>
+            <line x1="540" y1="350"  x2="551"  y2="409" stroke="black" stroke-width="1
+            "/>
+            <circle cx="50" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="44" y="424">11</text>
+            
+            <line x1="48" y1="430"  x2="37"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <circle cx="80" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="74" y="424">16</text>
+            
+            <line x1="78" y1="430"  x2="67"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <circle cx="108" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="102" y="424">22</text>
+            
+            <line x1="110" y1="430"  x2="121"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <circle cx="138" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="132" y="424">42</text>
+            
+            <circle cx="210" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="204" y="424">74</text>
+            
+            <line x1="208" y1="430"  x2="197"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <line x1="212" y1="430"  x2="223"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <circle cx="268" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="262" y="424">88</text>
+            
+            <line x1="266" y1="430"  x2="255"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <circle cx="296" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="290" y="424">99</text>
+            
+            <line x1="298" y1="430"  x2="309"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <circle cx="393" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="384" y="424">136</text>
+            
+            <line x1="390" y1="428"  x2="367"  y2="491" stroke="black" stroke-width="1
+            "/>
+            <line x1="396" y1="428"  x2="419"  y2="491" stroke="black" stroke-width="1
+            "/>
+            <circle cx="495" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="486" y="424">176</text>
+            
+            <line x1="493" y1="430"  x2="482"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <line x1="497" y1="430"  x2="508"  y2="489" stroke="black" stroke-width="1
+            "/>
+            <circle cx="523" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="514" y="424">193</text>
+            
+            <circle cx="553" cy="420" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="544" y="424">197</text>
+            
+            <circle cx="35" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="32" y="504">8</text>
+            
+            <line x1="33" y1="510"  x2="22"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <circle cx="65" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="59" y="504">13</text>
+            
+            <circle cx="123" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="117" y="504">27</text>
+            
+            <circle cx="195" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="189" y="504">68</text>
+            
+            <circle cx="225" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="219" y="504">81</text>
+            
+            <circle cx="253" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="247" y="504">87</text>
+            
+            <circle cx="311" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="302" y="504">101</text>
+            
+            <line x1="313" y1="510"  x2="324"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <circle cx="364" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="355" y="504">132</text>
+            
+            <line x1="362" y1="510"  x2="351"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <line x1="366" y1="510"  x2="377"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <circle cx="422" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="413" y="504">144</text>
+            
+            <line x1="420" y1="510"  x2="409"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <line x1="424" y1="510"  x2="435"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <circle cx="480" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="471" y="504">163</text>
+            
+            <line x1="478" y1="510"  x2="467"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <line x1="482" y1="510"  x2="493"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <circle cx="510" cy="500" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="501" y="504">180</text>
+            
+            <line x1="512" y1="510"  x2="523"  y2="569" stroke="black" stroke-width="1
+            "/>
+            <circle cx="20" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="17" y="584">5</text>
+            
+            <line x1="22" y1="590"  x2="33"  y2="649" stroke="black" stroke-width="1
+            "/>
+            <circle cx="326" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="317" y="584">104</text>
+            
+            <circle cx="349" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="340" y="584">116</text>
+            
+            <line x1="351" y1="590"  x2="362"  y2="649" stroke="black" stroke-width="1
+            "/>
+            <circle cx="379" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="370" y="584">135</text>
+            
+            <circle cx="407" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="398" y="584">138</text>
+            
+            <line x1="409" y1="590"  x2="420"  y2="649" stroke="black" stroke-width="1
+            "/>
+            <circle cx="437" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="428" y="584">145</text>
+            
+            <line x1="439" y1="590"  x2="450"  y2="649" stroke="black" stroke-width="1
+            "/>
+            <circle cx="465" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="456" y="584">160</text>
+            
+            <circle cx="495" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="486" y="584">171</text>
+            
+            <line x1="493" y1="590"  x2="482"  y2="649" stroke="black" stroke-width="1
+            "/>
+            <line x1="497" y1="590"  x2="508"  y2="649" stroke="black" stroke-width="1
+            "/>
+            <circle cx="525" cy="580" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="516" y="584">186</text>
+            
+            <circle cx="35" cy="660" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="32" y="664">6</text>
+            
+            <circle cx="364" cy="660" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="355" y="664">123</text>
+            
+            <circle cx="422" cy="660" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="413" y="664">141</text>
+            
+            <circle cx="452" cy="660" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="443" y="664">148</text>
+            
+            <circle cx="480" cy="660" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="471" y="664">169</text>
+            
+            <line x1="478" y1="670"  x2="467"  y2="729" stroke="black" stroke-width="1
+            "/>
+            <circle cx="510" cy="660" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="501" y="664">174</text>
+            
+            <circle cx="465" cy="740" r="10" fill="none" stroke="black" stroke-width="1"/>
+            
+            <text x="456" y="744">165</text>
+            
+            </svg>
+            

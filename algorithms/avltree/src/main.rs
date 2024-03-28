@@ -455,7 +455,7 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
             self.to_svg(file_name, svg);
 
             while self.is_completed(root) {
-                self.keep_away_childs(root, MARGIN as i32);
+                self.keep_away_subtrees(root, MARGIN as i32);
 
                 i += 1;
 
@@ -509,7 +509,7 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
         return is_left_overlaped || is_right_overlaped;
     }
 
-    fn keep_away_childs(&self, node: &Node<T>, margin: i32) {
+    fn keep_away_subtrees(&self, node: &Node<T>, margin: i32) {
         let avlnode = node.borrow();
 
         if let Some(diff) = self.min_distance(node) {
@@ -525,11 +525,11 @@ impl<T: Ord + Copy + Debug + ToString> AvlTree<T> {
         }
 
         if let Some(lnode) = &avlnode.left {
-            self.keep_away_childs(lnode, margin);
+            self.keep_away_subtrees(lnode, margin);
         }
 
         if let Some(rnode) = &avlnode.right {
-            self.keep_away_childs(rnode, margin);
+            self.keep_away_subtrees(rnode, margin);
         }
     }
 
