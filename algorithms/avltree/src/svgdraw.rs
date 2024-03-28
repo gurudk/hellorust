@@ -2,6 +2,10 @@ use std::fs::File;
 use std::io::Write;
 use std::ops::Range;
 
+pub const MIN_SPAN: i32 = 8;
+pub const NODE_RADIUS: i32 = 10;
+pub const MARGIN: usize = 20;
+
 pub struct SvgDraw {
     pub row: usize,
     pub col: usize,
@@ -24,6 +28,10 @@ impl SvgDraw {
             "#
         ));
         self
+    }
+
+    pub fn clear(&mut self) {
+        self.elements.clear();
     }
 
     pub fn text(
