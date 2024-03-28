@@ -12,11 +12,11 @@ use rand::distributions::{Distribution, Uniform};
 fn main() {
     println!("Hello, world!");
 
-    let mut avl = AvlTree::new(50);
+    let mut avl = AvlTree::new(200);
 
     let mut rng = rand::thread_rng();
-    let uni = Uniform::from(1..200);
-    for i in 0..66 {
+    let uni = Uniform::from(1..500);
+    for i in 0..333 {
         avl.insert(uni.sample(&mut rng));
     }
 
